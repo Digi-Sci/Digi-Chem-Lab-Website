@@ -1,0 +1,595 @@
+/* ============================================================
+   collaborate.css — Collaborate With Us Page
+   ============================================================ */
+
+
+/* ============================================================
+   1. RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f0f6ff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.nav-logo {
+  height: 40px;
+  width: auto;
+  flex-shrink: 0;
+  position: absolute;
+  left: 48px;
+}
+  
+/* ============================================================
+   2. ANIMATED BACKGROUND
+   ============================================================ */
+.bg-animated {
+  position: fixed; inset: 0;
+  background: linear-gradient(135deg, #f0f9ff 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+.bg-animated::before {
+  content: ''; position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(30,80,160,0.08) 0%, transparent 70%);
+  top: -200px; left: -200px;
+  animation: drift1 12s ease-in-out infinite alternate;
+}
+.bg-animated::after {
+  content: ''; position: absolute;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(100,180,255,0.12) 0%, transparent 70%);
+  bottom: -150px; right: -150px;
+  animation: drift2 14s ease-in-out infinite alternate;
+}
+@keyframes drift1 { from { transform: translate(0,0); } to { transform: translate(80px,60px); } }
+@keyframes drift2 { from { transform: translate(0,0); } to { transform: translate(-60px,-80px); } }
+
+
+/* ============================================================
+   3. FLOATING PARTICLES
+   ============================================================ */
+.particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.particle  { position: absolute; border-radius: 50%; background: rgba(21,101,192,0.15); animation: floatUp linear infinite; }
+@keyframes floatUp {
+  0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(-100px) scale(1); opacity: 0; }
+}
+
+
+/* ============================================================
+   4. NAV — full-width white bar (matches Projects & Innovations page)
+   ============================================================ */
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 48px;
+  height: 50px;
+  background: #ffffff;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.nav-buttons {
+  display: none;
+}
+
+.nav-right {
+  position: absolute;
+  right: 48px;
+  display: flex;
+  align-items: center;
+  top: 50%;                      
+  transform: translateY(-50%);   
+}
+
+.nav-btn {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 10px 22px;
+  white-space: nowrap;
+  border-radius: 8px;
+  border: none;
+  background: #ffffff;
+  color: #111827;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, transform 0.14s, box-shadow 0.18s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-btn:hover,
+.nav-btn:active {
+  background: #2563eb;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(37,99,235,0.35);
+}
+
+/* Dropdown — positioned inside .nav-right */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0; right: 0;
+  height: 12px;
+}
+
+.dropbtn {
+  background: #0f4c81;
+  color: white;
+  padding: 10px 18px;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.dropbtn:hover { background: #0891b2; }
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: 0.3s ease;
+  min-width: 180px;
+}
+
+.dropdown:hover .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-content a {
+  color: #0f172a;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-weight: 500;
+  transition: 0.25s ease;
+}
+.dropdown-content a:hover {
+  background: #f1f5f9;
+  color: #0f4c81;
+  padding-left: 20px;
+}
+
+@media (max-width: 900px) {
+  nav { padding: 0 20px; }
+  .nav-logo { left: 20px; }
+  .nav-right { right: 20px; }
+  .nav-buttons { padding-right: 90px; }
+}
+
+@media (max-width: 640px) {
+  .dropbtn { padding: 8px 13px; font-size: 13px; }
+  .dropdown-content { right: 0; left: auto; min-width: 160px; }
+}
+
+
+/* ============================================================
+   5. PAGE TITLE BANNER (matches Projects page)
+   ============================================================ */
+.page-title-banner {
+  margin-top: 50px;
+  background: #0f172a;
+  padding: 20px 28px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.page-title-banner h1 {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+
+/* ============================================================
+   5b. PAGE WRAPPER
+   ============================================================ */
+.page {
+  position: relative; z-index: 1;
+  max-width: 960px; margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+
+/* ============================================================
+   6. HEADER
+   ============================================================ */
+.header {
+  text-align: center; margin-bottom: 56px;
+  opacity: 0; transform: translateY(-30px);
+  animation: fadeDown 0.8s ease forwards 0.2s;
+}
+.header-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #0f4c81; color: #f0f6ff;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 6px 18px; border-radius: 100px; margin-bottom: 20px;
+}
+.header-badge::before {
+  content: ''; width: 6px; height: 6px;
+  background: #64b5f6; border-radius: 50%;
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+.header h1 { font-size: clamp(32px,6vw,56px); color: #0f4c81; line-height: 1.15; margin-bottom: 16px; }
+.header p  { font-size: clamp(14px,2.2vw,17px); color: #0f4c81; max-width: 480px; margin: 0 auto; line-height: 1.7; font-weight: 300; }
+.divider   { width: 60px; height: 3px; background: linear-gradient(90deg,#1565c0,#64b5f6); border-radius: 2px; margin: 24px auto 0; }
+@keyframes fadeDown { to { opacity: 1; transform: translateY(0); } }
+
+
+/* ============================================================
+   7. CARDS GRID
+   Desktop : 3 columns
+   Tablet  : 2 columns (card 3 spans full width)
+   Mobile  : 1 column
+   ============================================================ */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+
+/* ============================================================
+   8. CARD BASE
+   ============================================================ */
+.card {
+  position: relative; border-radius: 20px;
+  padding: 32px 26px 28px; cursor: pointer; overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.175,0.885,0.32,1.275), box-shadow 0.4s ease;
+  opacity: 0; transform: translateY(40px);
+}
+.card:nth-child(1) { animation: riseUp 0.7s ease forwards 0.5s; }
+.card:nth-child(2) { animation: riseUp 0.7s ease forwards 0.7s; }
+.card:nth-child(3) { animation: riseUp 0.7s ease forwards 0.9s; }
+@keyframes riseUp { to { opacity: 1; transform: translateY(0); } }
+
+.card:hover { transform: translateY(-10px) scale(1.02); }
+
+.card::after {
+  content: ''; position: absolute;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%) scale(0);
+  pointer-events: none; opacity: 0;
+}
+.card.ripple::after {
+  transform: translate(-50%,-50%) scale(3);
+  opacity: 0;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+
+/* ============================================================
+   9. CARD THEMES
+   ============================================================ */
+.card-white     { background: #fff; border: 1.5px solid #c8dff8; box-shadow: 0 8px 32px rgba(21,101,192,0.10); }
+.card-white:hover { box-shadow: 0 20px 50px rgba(21,101,192,0.18); border-color: #90caf9; }
+
+.card-lightblue { background: linear-gradient(135deg,#bbdefb 0%,#90caf9 100%); border: 1.5px solid #64b5f6; box-shadow: 0 8px 32px rgba(21,101,192,0.14); }
+.card-lightblue:hover { box-shadow: 0 20px 50px rgba(21,101,192,0.25); }
+
+.card-navy      { background: linear-gradient(135deg,#0d3b8c 0%,#1565c0 100%); border: 1.5px solid #1976d2; box-shadow: 0 8px 32px rgba(13,59,140,0.25); }
+.card-navy:hover { box-shadow: 0 20px 50px rgba(13,59,140,0.40); }
+
+
+/* ============================================================
+   10. CARD SHIMMER
+   ============================================================ */
+.card-shimmer {
+  position: absolute; top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+  pointer-events: none;
+}
+.card:hover .card-shimmer { left: 150%; }
+
+
+/* ============================================================
+   11. CARD DECORATIVE CIRCLES
+   ============================================================ */
+.card-deco { position: absolute; border-radius: 50%; pointer-events: none; }
+.card-deco-1 { width: 120px; height: 120px; top: -40px; right: -40px; }
+.card-deco-2 { width: 80px;  height: 80px;  bottom: -30px; left: -30px; opacity: 0.5; }
+.card-white .card-deco     { background: rgba(21,101,192,0.05); }
+.card-lightblue .card-deco { background: rgba(255,255,255,0.25); }
+.card-navy .card-deco      { background: rgba(255,255,255,0.06); }
+
+
+/* ============================================================
+   12. CARD NUMBER
+   ============================================================ */
+.card-num { position: absolute; top: 20px; right: 24px; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; opacity: 0.35; }
+.card-white .card-num     { color: #1565c0; }
+.card-lightblue .card-num { color: #0d3b8c; }
+.card-navy .card-num      { color: #fff; }
+
+
+/* ============================================================
+   13. ICON WRAP
+   ============================================================ */
+.icon-wrap {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px; transition: transform 0.3s ease;
+}
+.card:hover .icon-wrap { transform: rotate(-6deg) scale(1.1); }
+.card-white .icon-wrap     { background: #e3f2fd; }
+.card-lightblue .icon-wrap { background: rgba(255,255,255,0.6); }
+.card-navy .icon-wrap      { background: rgba(255,255,255,0.12); }
+.icon-wrap svg { width: 24px; height: 24px; }
+.card-white .icon-wrap svg     { stroke: #1565c0; }
+.card-lightblue .icon-wrap svg { stroke: #0d3b8c; }
+.card-navy .icon-wrap svg      { stroke: #90caf9; }
+
+
+/* ============================================================
+   14. CATEGORY TAG PILL
+   ============================================================ */
+.card-tag {
+  display: inline-block;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 100px; margin-bottom: 12px;
+}
+.card-white .card-tag     { background: #e3f2fd;               color: #1565c0; }
+.card-lightblue .card-tag { background: rgba(255,255,255,0.55); color: #0d3b8c; }
+.card-navy .card-tag      { background: rgba(255,255,255,0.12); color: #90caf9; }
+
+
+/* ============================================================
+   15. CARD TEXT
+   ============================================================ */
+.card-title { font-size: clamp(17px,2vw,22px); line-height: 1.3; margin-bottom: 10px; }
+.card-white .card-title     { color: #0a2a6e; }
+.card-lightblue .card-title { color: #0d3b8c; }
+.card-navy .card-title      { color: #fff; }
+
+.card-desc { font-size: 14px; line-height: 1.75; font-weight: 400; }
+.card-white .card-desc     { color: #4a6fa5; }
+.card-lightblue .card-desc { color: #1a4f9a; }
+.card-navy .card-desc      { color: rgba(255,255,255,0.75); }
+
+
+/* ============================================================
+   16. CTA SECTION
+   ============================================================ */
+.cta { text-align: center; margin-top: 56px; opacity: 0; animation: riseUp 0.8s ease forwards 1.3s; }
+.cta p { font-size: 15px; color: #4a6fa5; margin-bottom: 20px; }
+
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #0d3b8c; color: #fff;
+  font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 500;
+  padding: 14px 32px; border-radius: 100px; border: none; cursor: pointer;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 6px 20px rgba(13,59,140,0.30);
+}
+.cta-btn:hover { background: #1565c0; transform: translateY(-3px); box-shadow: 0 12px 30px rgba(13,59,140,0.40); }
+.cta-btn svg { width: 18px; height: 18px; }
+
+
+/* ============================================================
+   17. EMAIL MODAL
+   ============================================================ */
+.email-modal {
+  position: fixed; inset: 0;
+  background: rgba(10,42,110,0.75); backdrop-filter: blur(8px);
+  z-index: 2000; display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.email-modal.show { opacity: 1; visibility: visible; pointer-events: auto; }
+
+.email-modal-content {
+  background: #fff; border-radius: 24px;
+  max-width: 520px; width: 90%; max-height: 85vh; overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(13,59,140,0.4);
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
+}
+.email-modal.show .email-modal-content { transform: scale(1) translateY(0); }
+
+.email-modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 28px; border-bottom: 1.5px solid #e3f2fd;
+}
+.email-modal-header h3 { font-size: 20px; color: #0a2a6e; font-weight: 600; }
+
+.email-modal-close {
+  background: none; border: none; font-size: 28px; color: #4a6fa5; cursor: pointer;
+  width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; transition: background 0.2s, color 0.2s;
+}
+.email-modal-close:hover { background: #e3f2fd; color: #1565c0; }
+
+.email-modal-body { padding: 20px 28px 28px; }
+.email-info { font-size: 14px; color: #4a6fa5; margin-bottom: 16px; }
+.email-options { display: flex; flex-direction: column; gap: 12px; }
+
+.email-option {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 18px; background: #f0f6ff;
+  border: 1.5px solid #c8dff8; border-radius: 14px;
+  cursor: pointer; transition: all 0.25s; text-align: left; width: 100%;
+}
+.email-option:hover { background: #e3f2fd; border-color: #90caf9; transform: translateX(4px); box-shadow: 0 4px 16px rgba(21,101,192,0.12); }
+.email-option svg { width: 26px; height: 26px; stroke: #1565c0; flex-shrink: 0; }
+.email-option-text { display: flex; flex-direction: column; gap: 3px; }
+.email-option-text strong { font-size: 15px; color: #0a2a6e; font-weight: 600; }
+.email-option-text span   { font-size: 13px; color: #4a6fa5; }
+
+/* Copy notification */
+.copy-notification {
+  position: fixed; bottom: 28px; left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #0d3b8c; color: #fff;
+  padding: 13px 26px; border-radius: 100px;
+  font-size: 14px; font-weight: 500;
+  box-shadow: 0 8px 24px rgba(13,59,140,0.35);
+  z-index: 3000; opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.175,0.885,0.32,1.275), opacity 0.4s ease;
+}
+.copy-notification.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+
+/* ============================================================
+   18. CONTACT FORM (EmailJS)
+   ============================================================ */
+#collaborationForm { display: flex; flex-direction: column; gap: 16px; }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+
+.form-group label {
+  font-size: 13px; font-weight: 600; color: #0a2a6e; letter-spacing: 0.02em;
+}
+.form-group label .req { color: #e53e3e; }
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px; color: #0f172a;
+  background: #f8fbff;
+  border: 1.5px solid #c8dff8;
+  border-radius: 10px;
+  padding: 11px 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  width: 100%;
+}
+.form-group select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234a6fa5' stroke-width='2.5' stroke-linecap='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+.form-group textarea { resize: vertical; min-height: 100px; }
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #1565c0;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(21,101,192,0.12);
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: #a0b4cc; }
+
+/* Status message */
+.form-status {
+  font-size: 13.5px; font-weight: 500; border-radius: 10px;
+  padding: 0; max-height: 0; overflow: hidden;
+  transition: padding 0.3s, max-height 0.3s;
+}
+.form-status.status-success,
+.form-status.status-error {
+  padding: 12px 16px; max-height: 80px;
+}
+.form-status.status-success { background: #e8f5e9; color: #1b5e20; }
+.form-status.status-error   { background: #fdecea; color: #b71c1c; }
+
+/* Submit button */
+.form-submit {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: #0d3b8c; color: #fff;
+  font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 500;
+  padding: 13px 28px; border-radius: 100px; border: none; cursor: pointer;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 6px 20px rgba(13,59,140,0.28);
+  align-self: flex-start;
+}
+.form-submit:hover:not(:disabled) { background: #1565c0; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(13,59,140,0.38); }
+.form-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+.form-submit svg { width: 17px; height: 17px; flex-shrink: 0; }
+.form-submit svg.spin { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+
+/* ============================================================
+   19. RESPONSIVE — TABLET  ≤ 768px
+   ============================================================ */
+@media (max-width: 768px) {
+  .page   { padding: 60px 20px 72px; }
+  .cards  { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  /* 3rd card spans both columns */
+  .card:nth-child(3) { grid-column: 1 / -1; }
+  .header { margin-bottom: 40px; }
+}
+
+
+/* ============================================================
+   19. RESPONSIVE — MOBILE  ≤ 500px
+   ============================================================ */
+@media (max-width: 500px) {
+  .page          { padding: 80px 16px 64px; }
+  .header        { margin-bottom: 28px; }
+  .header h1     { font-size: clamp(26px,8.5vw,34px); }
+  .header p      { font-size: 14px; padding: 0 2px; }
+  .header-badge  { font-size: 10px; padding: 5px 14px; }
+
+  /* Single column */
+  .cards               { grid-template-columns: 1fr; gap: 14px; }
+  .card:nth-child(3)   { grid-column: auto; }
+  .card                { padding: 24px 20px 20px; border-radius: 16px; }
+  .card-title          { font-size: 17px; }
+  .card-desc           { font-size: 13.5px; line-height: 1.65; }
+  .icon-wrap           { width: 46px; height: 46px; margin-bottom: 16px; }
+
+  /* No hover lift on touch */
+  .card:hover { transform: none; }
+
+  /* CTA */
+  .cta     { margin-top: 32px; }
+  .cta-btn { width: 100%; max-width: 300px; justify-content: center; padding: 15px 20px; }
+
+  /* Nav — handled by .collab-nav flex layout */
+
+  /* Modal */
+  .email-modal-content   { width: 96%; border-radius: 18px; }
+  .email-modal-header    { padding: 18px 20px; }
+  .email-modal-body      { padding: 16px 20px 22px; }
+  .email-modal-header h3 { font-size: 17px; }
+  .email-option          { padding: 13px 14px; }
+  .email-option-text strong { font-size: 14px; }
+
+  /* Form */
+  .form-row { grid-template-columns: 1fr; }
+  .form-submit { width: 100%; }
+}

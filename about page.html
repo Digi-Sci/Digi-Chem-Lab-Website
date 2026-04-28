@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>About | DigiChem Lab</title>
+<link rel="icon" type="image/svg" href="images/logo.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+:root { --bg: #f0f9ff; --blue: #2563eb; --dark: #0f172a; --w: #fff; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--dark); line-height: 1.7; overflow-x: hidden; width: 100%; }
+
+/* ══ NAV — DESKTOP (single row) ══ */
+nav {
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+/* Single row wrapper for desktop */
+.nav-row1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 64px;
+}
+
+.nav-logo {
+  width: 60px;   /* adjust size */
+  height: 60px;
+  object-fit: contain;
+}
+
+/* Anchor links — center on desktop */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.nav-link{
+  font-size:0.875rem;
+  font-weight:600;
+  padding:8px 14px;
+  border-radius:10px;
+  color:#111827;
+  text-decoration:none;
+  white-space:nowrap;
+
+  transition:
+    background 0.2s,
+    color 0.2s,
+    transform 0.18s,
+    box-shadow 0.2s;
+}
+
+.nav-link:hover{
+  background:#2563eb;
+  color:#ffffff;
+  transform:translateY(-2px);
+  box-shadow:0 4px 14px rgba(37,99,235,0.35);
+}
+
+.nav-link.active{
+  background:#2563eb;
+  color:#ffffff;
+  box-shadow:0 4px 14px rgba(37,99,235,0.3);
+}
+
+.nav-link:active{
+  transform:scale(0.97);
+}
+
+/* Menu dropdown — far right */
+.nav-right {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+.dropbtn {
+  background: #0f4c81;
+  color: white;
+  padding: 10px 18px;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.dropbtn:hover { background: #0891b2; }
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: 0.3s ease;
+  min-width: 180px;
+  z-index: 1001;
+}
+
+.dropdown-content a {
+  color: #0f172a;
+  padding: 10px 12px;
+  text-decoration: none;
+  display: block;
+  font-weight: 500;
+  transition: 0.25s ease;
+}
+
+.dropdown-content a:hover {
+  background: #f1f5f9;
+  color: #0f4c81;
+  padding-left: 20px;
+}
+
+.dropdown:hover .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Row 2 — hidden on desktop, shown on mobile */
+.nav-row2 {
+  display: none;
+}
+
+/* ══ MOBILE — anchor links ABOVE logo + menu ══ */
+@media (max-width: 768px) {
+
+  /* Make nav act like stacked rows */
+  nav{
+    display:flex;
+    flex-direction:column-reverse;
+  }
+
+  /* Row with logo + menu becomes second row */
+  .nav-row1{
+    padding:0 16px;
+    height:52px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+
+  .nav-logo{
+    height:32px;
+    width:auto;
+  }
+
+  .dropbtn{
+    padding:8px 12px;
+    font-size:13px;
+  }
+
+  .dropdown-content{
+    right:0;
+    left:auto;
+    min-width:160px;
+  }
+
+  /* Hide desktop anchor links in row1 */
+  .nav-links{
+    display:none;
+  }
+
+  /* SHOW mobile anchor links as TOP row */
+  .nav-row2{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:4px;
+    padding:8px 8px 6px;
+    border-bottom:1px solid rgba(0,0,0,0.06);
+    border-top:none;
+    background:white;
+  }
+
+  .nav-row2 .nav-link{
+    font-size:0.72rem;
+    padding:5px 9px;
+  }
+}
+
+@media (max-width: 360px) {
+  .nav-row2 .nav-link { font-size: 0.65rem; padding: 5px 6px; }
+}
+
+/* ══ REST OF PAGE ══ */
+.section-inner { max-width: 960px; margin: 0 auto; width: 100%; }
+
+.hero {
+  background: #0f172a;
+  padding: 22px 48px;
+  text-align: center;
+}
+.hero h1 {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700; color: var(--w); line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.hero-overview {
+  font-size: clamp(.8rem, 2vw, 1rem);
+  color: rgba(255,255,255,0.75);
+  margin-top: 10px;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.65;
+}
+
+.divider { height: 2px; background: var(--blue); opacity: .15; }
+.about-overview {
+  max-width: 760px;
+  width: 100%;
+  margin: 0 auto;
+  padding: clamp(32px, 6vw, 64px) clamp(20px, 5%, 40px);
+  text-align: center;
+  box-sizing: border-box;
+}
+.overview-heading {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  font-weight: 800;
+  color: var(--dark);
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  display: inline-block;
+  position: relative;
+}
+.overview-heading::after {
+  content: '';
+  display: block;
+  width: 26px;
+  height: 1px;
+  background: var(--blue);
+  border-radius: 2px;
+  margin: 8px auto 0;
+}
+.about-overview p {
+  font-size: clamp(.95rem, 2.2vw, 1rem);
+  color: #334155;
+  line-height: 1.9;
+  max-width: 300%;
+  margin: 0 auto;
+}
+@media (max-width: 768px) {
+  .about-overview {
+    padding: clamp(18px, 5vw, 30px) clamp(10px, 5%, 22px);
+  }
+}
+@media (max-width: 400px) {
+  .about-overview {
+    padding: 17px 14px;
+  }
+  .about-overview p {
+    font-size: 0.98rem;
+  }
+}
+.divider-thick { height: 3px; opacity: .3; }
+
+.vm-section, .founder, .team-section {
+  padding: clamp(32px,7vw,80px) clamp(16px,5%,48px);
+}
+.vm-section .section-inner,
+.founder    .section-inner,
+.team-section .section-inner { display: flex; flex-direction: column; align-items: center; }
+
+.vm-cards { display: flex; flex-direction: column; gap: 18px; width: 100%; }
+.vm-card {
+  position: relative; overflow: hidden; background: var(--w);
+  border: 3px solid var(--blue); border-radius: 20px;
+  padding: clamp(20px,4vw,36px) clamp(16px,4vw,32px);
+  display: flex; flex-direction: column; gap: 14px;
+  transition: transform .2s; min-width: 0;
+}
+.vm-card:hover { transform: translateY(-4px); }
+.vm-card > * { position: relative; z-index: 1; }
+
+#visionCard::before, #visionCard::after { content: ''; position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
+#visionCard::before { width: 260px; height: 260px; top: -60px; right: -60px; background: radial-gradient(circle, rgba(37,99,235,.07) 0%, transparent 70%); animation: glow-drift-a 9s ease-in-out infinite alternate; }
+#visionCard::after { width: 180px; height: 180px; bottom: -40px; left: -20px; background: radial-gradient(circle, rgba(37,99,235,.05) 0%, transparent 70%); animation: glow-drift-b 12s ease-in-out infinite alternate; }
+@keyframes glow-drift-a { 0%{transform:translate(0,0) scale(1)} 50%{transform:translate(-18px,14px) scale(1.08)} 100%{transform:translate(10px,-10px) scale(.95)} }
+@keyframes glow-drift-b { 0%{transform:translate(0,0) scale(1)} 50%{transform:translate(14px,-10px) scale(1.1)} 100%{transform:translate(-8px,16px) scale(.92)} }
+
+#missionCard::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(118deg, transparent 30%, rgba(37,99,235,.04) 50%, transparent 70%);
+  background-size: 200% 200%; animation: band-slide 8s ease-in-out infinite alternate;
+}
+@keyframes band-slide { 0%{background-position:0% 0%} 100%{background-position:100% 100%} }
+
+.icon { width: 48px; height: 48px; border-radius: 14px; background: var(--blue); color: var(--w); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.card-title { font-size: clamp(1.1rem,3.5vw,1.6rem); font-weight: 800; color: var(--dark); letter-spacing: -.02em; line-height: 1.2; position: relative; display: inline-block; }
+.card-title::after { content: ''; position: absolute; left: 0; bottom: -2px; height: 2px; width: 0; background: var(--blue); border-radius: 2px; transition: width .35s ease; }
+.vm-card:hover .card-title::after { width: 100%; }
+.body-txt { font-size: clamp(.8rem,2vw,.95rem); font-weight: 600; color: var(--dark); line-height: 1.85; }
+.list { list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: clamp(.8rem,2vw,.95rem); font-weight: 600; color: var(--dark); line-height: 1.75; }
+.list li { display: flex; align-items: flex-start; gap: 10px; }
+.list li::before { content: '▸'; font-size: .8rem; margin-top: 4px; flex-shrink: 0; }
+.vm-card:hover .icon { animation: icon-pulse .6s ease; }
+@keyframes icon-pulse { 0%{transform:scale(1)} 40%{transform:scale(1.18)} 70%{transform:scale(.94)} 100%{transform:scale(1)} }
+.vm-card:hover .icon svg { animation: spin-once .6s ease; }
+@keyframes spin-once { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+.founder-heading, .team-h {
+  font-size: clamp(1rem,3.5vw,2rem); font-weight: 800; color: var(--dark);
+  letter-spacing: -.02em; margin-bottom: clamp(18px,4vw,36px); text-align: center;
+}
+.founder-card {
+  background: var(--w); border: 2px solid var(--blue); border-radius: 20px;
+  display: flex; flex-direction: row; align-items: stretch; overflow: hidden; width: 100%;
+}
+.f-photo-banner {
+  width: 40%; background: var(--dark);
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  padding: 24px; gap: 12px; position: relative;
+}
+.f-photo-banner::after {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size: 30px 30px; pointer-events: none;
+}
+.f-photo {
+  width: clamp(120px, 22vw, 200px); height: clamp(120px, 22vw, 200px);
+  border-radius: 50%; background: var(--blue); border: 4px solid var(--w);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; flex-shrink: 0; position: relative; z-index: 2;
+}
+.f-photo img { width: 200%; height: 100%; object-fit: cover; display: block; }
+.f-banner-info { position: static; text-align: center; margin-top: 15px; padding: 18px 28px; z-index: 3; }
+.f-name { font-weight: 800; font-size: clamp(1.1rem,3.5vw,1.8rem); color: var(--w); line-height: 1.2; margin-top: 1px; }
+.f-role { font-size: clamp(.72rem,2vw,.88rem); color: rgba(255,255,255,.75); line-height: 1.6; margin-top: 3px; }
+
+.f-right { flex: 1; padding: clamp(18px,4vw,44px) clamp(16px,4vw,48px); min-width: 0; }
+.qual-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: clamp(14px,3vw,32px); }
+.qual-list li { display: flex; align-items: stretch; border-radius: 12px; overflow: hidden; border: 1.5px solid var(--blue); background: var(--w); transition: transform .18s; min-width: 0; }
+.qual-list li:hover { transform: translateX(4px); }
+.bar { width: 5px; flex-shrink: 0; background: var(--blue); }
+.ql-icon { width: 40px; flex-shrink: 0; color: var(--blue); display: flex; align-items: center; justify-content: center; }
+.ql-txt { flex: 1; min-width: 0; padding: 10px 10px; display: flex; flex-direction: column; gap: 2px; }
+.ql-deg { font-size: clamp(.75rem,2vw,.97rem); font-weight: 700; color: var(--dark); }
+.ql-detail { font-size: clamp(.62rem,1.5vw,.78rem); font-weight: 600; color: var(--dark); letter-spacing: .04em; text-transform: uppercase; }
+.bio { font-size: clamp(.78rem,2vw,.93rem); font-weight: 600; color: var(--dark); line-height: 1.85; }
+
+.team-card { background: var(--blue); border-radius: 24px; width: 100%; }
+.team-inner { padding: clamp(28px,6vw,64px) clamp(16px,5vw,56px); display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; }
+.team-desc { font-size: clamp(.8rem,2vw,1rem); color: var(--w); line-height: 1.85; max-width: 560px; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  background: var(--w); color: var(--dark);
+  font-size: clamp(.8rem,2.2vw,.92rem); font-weight: 700;
+  padding: 12px clamp(20px,5vw,38px); border-radius: 12px; text-decoration: none;
+  transition: background .18s, color .18s, transform .18s;
+  margin-top: 4px; border: none; width: 100%; max-width: 240px;
+}
+.btn:hover { background: var(--dark); color: var(--w); transform: translateY(-2px); }
+.btn::after { content: ' →'; }
+
+footer { background: var(--dark); padding: 1.5rem clamp(16px,5%,40px); text-align: center; border-top: 1.5px solid rgba(37,99,235,0.25); }
+footer p { color: #94a3b8; font-size: clamp(.7rem,2vw,.88rem); word-break: break-word; }
+
+/* ── SCROLL TRANSITIONS ── */
+.scroll-reveal {
+  opacity: 0;
+  will-change: opacity, transform;
+  transition: opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1);
+}
+.sr-up    { transform: translateY(40px); }
+.sr-down  { transform: translateY(-40px); }
+.sr-left  { transform: translateX(-40px); }
+.sr-right { transform: translateX(40px); }
+.sr-scale { transform: scale(.93); }
+.scroll-reveal.visible { opacity: 1; transform: none; }
+.scroll-reveal.exit-up    { opacity: 0; transform: translateY(-30px); }
+.scroll-reveal.exit-down  { opacity: 0; transform: translateY(30px); }
+.sr-stagger > .scroll-reveal:nth-child(1) { transition-delay: 0s; }
+.sr-stagger > .scroll-reveal:nth-child(2) { transition-delay: .12s; }
+.sr-stagger > .scroll-reveal:nth-child(3) { transition-delay: .24s; }
+.sr-stagger > .scroll-reveal:nth-child(4) { transition-delay: .36s; }
+
+@keyframes up { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
+
+/* ══ RESPONSIVE — PHONE ══ */
+@media (max-width: 640px) {
+  .hero { padding: 18px 20px; }
+  .founder-card { flex-direction: column; }
+  .f-photo-banner { width: 100%; padding: 28px 16px 20px; }
+  .f-photo { width: clamp(90px, 28vw, 130px); height: clamp(90px, 28vw, 130px); }
+  .f-banner-info { padding: 10px 12px; margin-top: 8px; }
+  .f-name { font-size: clamp(1rem, 5vw, 1.3rem); }
+  .f-right { padding: 20px 16px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <!-- Row 1: always visible — logo + anchor links (desktop) + menu btn -->
+  <div class="nav-row1">
+    <img src="images/logo.png" alt="DigiChem Logo" class="nav-logo">
+
+    <!-- Anchor links — in row 1 on desktop, hidden on mobile -->
+    <div class="nav-links" id="navLinksDesktop">
+      <a href="#about" class="nav-link">About</a>
+      <a href="#vm" class="nav-link">Vision &amp; Mission</a>
+      <a href="#founder" class="nav-link">Founder</a>
+      <a href="#team" class="nav-link">Team</a>
+    </div>
+
+    <div class="nav-right">
+      <div class="dropdown">
+        <button class="dropbtn">Menu ▾</button>
+        <div class="dropdown-content">
+          <a href="index.html">Home</a>
+          <a href="research.html">Research</a>
+          <a href="projects.html">Projects</a>
+          <a href="team.html">Our Team</a>
+          <a href="facilities.html">Lab Facilities &amp; Tools</a>
+          <a href="publications.html">Publication</a>
+          <a href="collaboration.html">Collaboration</a>
+          <a href="contact us.html">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2: mobile only — anchor links below logo+menu -->
+  <div class="nav-row2" id="navLinksMobile">
+    <a href="#about" class="nav-link">About</a>
+    <a href="#vm" class="nav-link">Vision &amp; Mission</a>
+    <a href="#founder" class="nav-link">Founder</a>
+    <a href="#team" class="nav-link">Team</a>
+  </div>
+</nav>
+
+<section id="about" class="hero">
+  <h1>About</h1>
+</section>
+
+<div class="divider"></div>
+
+<div class="about-overview">
+  <h2 class="overview-heading">Overview</h2>
+  <p>The DigiChem Lab is a research group at the University of Mumbai dedicated to advancing chemical science through computational and AI-driven approaches. The lab focuses on solving complex chemical problems using a combination of theoretical chemistry, data science, and machine learning.</p>
+</div>
+
+<section id="vm" class="vm-section">
+  <div class="section-inner">
+    <div class="vm-cards sr-stagger">
+      <div class="vm-card scroll-reveal sr-left" id="visionCard">
+        <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 5V3M12 21v-2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M3 12H1M23 12h-2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/><circle cx="12" cy="12" r="7" stroke-dasharray="3 2"/></svg></div>
+        <div class="card-title">Vision</div>
+        <p class="body-txt" style="margin-top:10px;">To transform chemical research by integrating artificial intelligence and computational methods into mainstream scientific workflows.</p>
+      </div>
+      <div class="vm-card scroll-reveal sr-right" id="missionCard">
+        <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2l2-2-3-3-2 2zM12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><circle cx="16.5" cy="7.5" r="1.5" fill="currentColor" stroke="none"/></svg></div>
+        <div class="card-title">Mission</div>
+        <ul class="list">
+          <li>Develop AI-driven tools for chemical analysis</li>
+          <li>Advance research in computational chemistry</li>
+          <li>Bridge academia and industry through technology</li>
+          <li>Train students in modern digital research techniques</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider divider-thick"></div>
+
+<section id="founder" class="founder">
+  <div class="section-inner">
+    <div class="founder-heading scroll-reveal sr-up">Founder / Principal Investigator</div>
+    <div class="founder-card scroll-reveal sr-scale">
+      <div class="f-photo-banner">
+        <div class="f-photo"><img src="dr_purav_badani.jpeg" alt="Dr. Purav Badani"></div>
+        <div class="f-banner-info">
+          <div class="f-name">Dr. Purav Badani</div>
+          <div class="f-role">Associate Professor, Department of Chemistry</div>
+        </div>
+      </div>
+      <div class="f-right">
+        <ul class="qual-list">
+          <li><div class="bar"></div><div class="ql-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/></svg></div><div class="ql-txt"><span class="ql-deg">M.Sc. — Data Science</span><span class="ql-detail">University Rank Holder</span></div></li>
+          <li><div class="bar"></div><div class="ql-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></svg></div><div class="ql-txt"><span class="ql-deg">M.Sc. — Chemistry</span><span class="ql-detail">Gold Medallist</span></div></li>
+          <li><div class="bar"></div><div class="ql-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 12 15 2 8.5"/><polyline points="6 11.5 6 18 12 21 18 18 18 11.5"/></svg></div><div class="ql-txt"><span class="ql-deg">Ph.D. — Chemistry</span><span class="ql-detail"></span></div></li>
+        </ul>
+        <p class="bio">Dr. Badani's research focuses on understanding reaction mechanisms and developing AI-based tools for chemical analysis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="team" class="team-section">
+  <div class="section-inner">
+    <div class="team-h scroll-reveal sr-up">Team Overview</div>
+    <div class="team-card scroll-reveal sr-up">
+      <div class="team-inner">
+        <p class="team-desc">The lab includes postgraduate and research students working on interdisciplinary problems at the intersection of chemistry and computation.</p>
+        <a href="team.html" class="btn">View Full Team</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Highlight active link on scroll — applies to both desktop + mobile sets
+const sections = document.querySelectorAll('#about, #vm, #founder, #team');
+const allNavLinks = document.querySelectorAll('.nav-link');
+
+sections.forEach(s => {
+  new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        allNavLinks.forEach(l => l.classList.remove('active'));
+        document.querySelectorAll('.nav-link[href="#' + entry.target.id + '"]')
+          .forEach(l => l.classList.add('active'));
+      }
+    });
+  }, { threshold: 0.4 }).observe(s);
+});
+
+// Smooth scroll — offset by nav height
+allNavLinks.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      const navH = document.querySelector('nav').offsetHeight;
+      const top = target.getBoundingClientRect().top + window.scrollY - navH - 8;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+
+// Scroll reveal
+const revealEls = document.querySelectorAll('.scroll-reveal');
+let lastScrollY = window.scrollY;
+
+const revealObserver = new IntersectionObserver((entries) => {
+  const scrollingDown = window.scrollY >= lastScrollY;
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      entry.target.classList.remove('exit-up', 'exit-down');
+    } else {
+      if (scrollingDown) {
+        entry.target.classList.add('exit-up');
+        entry.target.classList.remove('visible', 'exit-down');
+        setTimeout(() => {
+          if (!entry.target.classList.contains('visible')) entry.target.classList.remove('exit-up');
+        }, 350);
+      } else {
+        entry.target.classList.remove('visible', 'exit-up', 'exit-down');
+      }
+    }
+  });
+  lastScrollY = window.scrollY;
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+window.addEventListener('scroll', () => { lastScrollY = window.scrollY; }, { passive: true });
+revealEls.forEach(el => revealObserver.observe(el));
+</script>
+</body>
+</html>

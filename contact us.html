@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | DigiChem Lab</title>
+<link rel="icon" type="image/svg" href="images/logo.svg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:#f0f9ff;
+  margin:0;
+  /* offset for white nav (66px) + dark header (~62px) */
+  padding-top:128px;
+  overflow-x:hidden;
+}
+
+/* Bubble canvas background */
+#bgCanvas{
+  position:fixed;
+  top:0;left:0;
+  z-index:0;
+  pointer-events:none;
+}
+
+/* ══ WHITE TOP NAV (66px) ══ */
+.top-nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:1100;
+  background:#ffffff;
+  height:66px;
+  display:flex;
+  align-items:center;
+  padding:0 30px;
+  border-bottom:1px solid rgba(0,0,0,0.08);
+  gap:12px;
+}
+
+/* Logo */
+.nav-logo{
+  display:flex;
+  align-items:center;
+  flex-shrink:0;
+  text-decoration:none;
+}
+.nav-logo img{
+  height:46px;
+  width:auto;
+  object-fit:contain;
+}
+
+/* Spacer pushes menu button to the right */
+.nav-spacer{flex:1;}
+
+/* ══ MENU DROPDOWN ══ */
+.dropdown{
+  position:relative;
+  display:inline-block;
+  flex-shrink:0;
+  padding-bottom:10px;
+}
+.dropbtn{
+  background:#0f4c81;
+  color:white;
+  padding:10px 18px;
+  font-size:14px;
+  font-family:'Inter',sans-serif;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  transition:0.3s ease;
+  white-space:nowrap;
+}
+.dropbtn:hover{background:#0891b2;}
+
+.dropdown-content{
+  position:absolute;
+  top:100%;
+  right:0;
+  background:#ffffff;
+  border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(10px);
+  transition:0.3s ease;
+  min-width:190px;
+  z-index:1200;
+}
+.dropdown-content a{
+  color:#0f172a;
+  padding:12px 16px;
+  text-decoration:none;
+  display:block;
+  font-family:'Inter',sans-serif;
+  font-weight:500;
+  font-size:14px;
+  transition:0.25s ease;
+  text-align:left;
+}
+.dropdown-content a:hover{
+  background:#f1f5f9;
+  color:#0f4c81;
+  padding-left:20px;
+}
+.dropdown:hover .dropdown-content,
+.dropdown.open .dropdown-content{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+
+/* ══ DARK HEADER BAR ══ */
+.dark-header{
+  position:fixed;
+  top:66px;
+  left:0;right:0;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px 30px;
+  background:rgba(15,23,42,0.97);
+  backdrop-filter:blur(10px);
+  color:white;
+  box-shadow:0 2px 10px rgba(0,0,0,0.15);
+}
+.page-title{
+  margin:0;
+  font-size:clamp(1.4rem, 3vw, 2rem);
+  font-weight:600;
+  color:white;
+  text-align:center;
+  font-family:'Inter',sans-serif;
+  white-space:nowrap;
+}
+
+/* ══ CONTENT ══ */
+.container{
+  position:relative;
+  z-index:1;
+  max-width:750px;
+  margin:30px auto 50px;
+  background:rgba(255,255,255,0.82);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  animation:fadeIn 0.6s ease-in-out;
+}
+
+.info{
+  margin-bottom:25px;
+  padding:15px;
+  background:#f8fafc;
+  border-radius:10px;
+  border-left:5px solid #2563eb;
+}
+.info h3{margin:0 0 6px;}
+.info p{margin:4px 0;font-size:14px;color:#374151;}
+
+hr{
+  border:none;
+  height:1px;
+  background:#e5e7eb;
+  margin:20px 0;
+}
+
+form{
+  display:flex;
+  flex-direction:column;
+}
+
+.input-group{
+  position:relative;
+  margin:10px 0;
+}
+.input-group i{
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#6b7280;
+  font-size:14px;
+}
+.input-group:has(textarea) i{
+  top:18px;
+  transform:none;
+}
+.input-group input,
+.input-group textarea{
+  width:100%;
+  padding:12px 12px 12px 40px;
+  border-radius:10px;
+  border:1px solid #d1d5db;
+  font-size:14px;
+  font-family:'Inter',sans-serif;
+  transition:0.3s;
+  box-sizing:border-box;
+  margin:0;
+  background:rgba(255,255,255,0.9);
+}
+.input-group textarea{
+  min-height:110px;
+  resize:vertical;
+}
+.input-group input:focus,
+.input-group textarea:focus{
+  border-color:#2563eb;
+  box-shadow:0 0 5px rgba(37,99,235,0.3);
+  outline:none;
+}
+.input-group:focus-within i{color:#2563eb;}
+
+button[type="submit"]{
+  width:100%;
+  padding:12px;
+  background:#2563eb;
+  color:white;
+  border:none;
+  border-radius:10px;
+  font-size:15px;
+  font-family:'Inter',sans-serif;
+  cursor:pointer;
+  transition:0.3s;
+  margin-top:6px;
+}
+button[type="submit"]:hover{
+  transform:translateY(-2px);
+  opacity:0.9;
+}
+button[type="submit"]:disabled{
+  background:#93c5fd;
+  cursor:not-allowed;
+  transform:none;
+}
+
+#success{
+  color:#16a34a;
+  margin-top:15px;
+  display:none;
+  font-weight:500;
+  text-align:center;
+  padding:12px;
+  background:#f0fdf4;
+  border-radius:10px;
+  border:1px solid #bbf7d0;
+}
+#error-msg{
+  color:#dc2626;
+  margin-top:15px;
+  display:none;
+  font-weight:500;
+  text-align:center;
+  padding:12px;
+  background:#fef2f2;
+  border-radius:10px;
+  border:1px solid #fecaca;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(10px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* ══ MOBILE ══ */
+@media(max-width:640px){
+  .top-nav{padding:0 16px;}
+  .dark-header{padding:14px 16px;}
+  .page-title{font-size:18px;}
+  .dropbtn{padding:8px 13px;font-size:13px;}
+  .dropdown-content{right:0;left:auto;min-width:160px;}
+  .container{margin:20px 16px 40px;padding:20px;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Bubble animation canvas -->
+<canvas id="bgCanvas"></canvas>
+
+<!-- ══ WHITE TOP NAV ══ -->
+<nav class="top-nav">
+
+  <!-- Logo (top-left) -->
+  <a href="index.html" class="nav-logo">
+    <img src="images/logo.png"alt="DigiChem Lab Logo">
+  </a>
+
+  <!-- Spacer -->
+  <div class="nav-spacer"></div>
+
+  <!-- Menu dropdown (top-right) -->
+  <div class="dropdown" id="siteMenuDropdown">
+    <button class="dropbtn" id="siteMenuBtn">Menu &#9662;</button>
+    <div class="dropdown-content">
+      <a href="index.html">Home</a>
+      <a href="about page.html">About</a>
+      <a href="research.html">Research</a>
+      <a href="projects.html">Projects</a>
+      <a href="team.html">Our Team</a>
+      <a href="facilities.html">Lab Facilities &amp; Tools</a>
+      <a href="publications.html">Publication</a>
+      <a href="collaboration.html">Collaboration</a>
+    </div>
+  </div>
+
+</nav>
+
+<!-- ══ DARK HEADER BAR ══ -->
+<div class="dark-header">
+  <h1 class="page-title">Contact Us</h1>
+</div>
+
+<!-- ══ CONTENT ══ -->
+<div class="container">
+
+  <div class="info">
+    <h3>Dr. Purav Badani</h3>
+    <p>Department of Chemistry</p>
+    <p>University of Mumbai</p>
+    <p><b>Email:</b> pmbadani@chem.mu.ac.in</p>
+  </div>
+
+  <hr>
+  <h3 style="margin-bottom:4px;">Send a Message</h3>
+
+  <form id="contactForm">
+    <div class="input-group">
+      <i class="fa-solid fa-address-book"></i>
+      <input type="text" name="name" placeholder="Name" required>
+    </div>
+    <div class="input-group">
+      <i class="fa-solid fa-at"></i>
+      <input type="email" name="email" placeholder="Email" required>
+    </div>
+    <div class="input-group">
+      <i class="fa-solid fa-building"></i>
+      <input type="text" name="affiliation" placeholder="Institute/Organization">
+    </div>
+    <div class="input-group">
+      <i class="fa-solid fa-phone"></i>
+      <input type="text" name="phone" placeholder="Phone">
+    </div>
+    <div class="input-group">
+      <i class="fa-solid fa-envelope"></i>
+      <input type="text" name="subject" placeholder="Subject">
+    </div>
+    <div class="input-group">
+      <i class="fa-solid fa-message"></i>
+      <textarea name="message" placeholder="Message"></textarea>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+
+  <div id="success">✅ Message sent successfully!</div>
+  <div id="error-msg">❌ Something went wrong. Please try again.</div>
+
+</div>
+
+<!-- ══ BUBBLE ANIMATION ══ -->
+<script>
+const canvas = document.getElementById("bgCanvas");
+const ctx = canvas.getContext("2d");
+let width, height, bubbles = [];
+
+function resize(){
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resize);
+resize();
+
+function createBubbles(){
+  bubbles = [];
+  for(let i=0;i<40;i++){
+    bubbles.push({
+      x: Math.random()*width,
+      y: Math.random()*height,
+      r: Math.random()*6+2,
+      speed: Math.random()*0.5+0.2,
+      opacity: Math.random()*0.4+0.2
+    });
+  }
+}
+
+function draw(){
+  ctx.clearRect(0,0,width,height);
+  bubbles.forEach(b=>{
+    ctx.beginPath();
+    ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(0,150,255,${b.opacity})`;
+    ctx.fill();
+    b.y-=b.speed;
+    if(b.y<-10){ b.y=height+10; b.x=Math.random()*width; }
+  });
+  requestAnimationFrame(draw);
+}
+createBubbles();
+draw();
+</script>
+
+<!-- ══ GOOGLE APPS SCRIPT SUBMISSION ══ -->
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwq4TzVYyrg7eyIrDYoe2Gb6uEdQovD8gBS8QKGRE9gnpmf9e0Uuf1BvSN6gb7e0TCarw/exec";
+
+document.getElementById("contactForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+  const formData = new FormData(this);
+  const data = {
+    name: formData.get("name"),
+    email: formData.get("email"),
+    affiliation: formData.get("affiliation"),
+    phone: formData.get("phone"),
+    subject: formData.get("subject"),
+    message: formData.get("message")
+  };
+
+  try{
+    const response = await fetch(SCRIPT_URL,{method:"POST",body:JSON.stringify(data)});
+    const result = await response.json();
+    if(result.status==="success"){
+      document.getElementById("success").style.display="block";
+      document.getElementById("error-msg").style.display="none";
+      document.getElementById("contactForm").reset();
+    } else {
+      document.getElementById("error-msg").style.display="block";
+    }
+  } catch(error){
+    document.getElementById("error-msg").style.display="block";
+    console.error(error);
+  }
+});
+</script>
+
+<!-- ══ EMAILJS ══ -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+(function(){ emailjs.init("7WbiGKQP6WXStFQQT"); })();
+
+document.getElementById("contactForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  emailjs.sendForm("service_mi5z5da","template_zwg5tsq",this)
+  .then(function(){
+    document.getElementById("success").style.display="block";
+    document.getElementById("error-msg").style.display="none";
+    document.getElementById("contactForm").reset();
+  }, function(error){
+    console.error(error);
+  });
+});
+</script>
+
+<!-- ══ MOBILE TAP-TO-TOGGLE ══ -->
+<script>
+(function(){
+  const btn      = document.getElementById('siteMenuBtn');
+  const dropdown = document.getElementById('siteMenuDropdown');
+
+  btn.addEventListener('click',function(e){
+    if(window.innerWidth<=900){
+      e.stopPropagation();
+      dropdown.classList.toggle('open');
+    }
+  });
+
+  document.addEventListener('click',function(){ dropdown.classList.remove('open'); });
+  window.addEventListener('scroll',function(){ dropdown.classList.remove('open'); },{passive:true});
+})();
+</script>
+
+</body>
+</html>

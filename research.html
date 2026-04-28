@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Areas</title>
+<link rel="icon" type="image/svg" href="images/logo.svg"
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue: #2563eb;
+  --blue-light: #60a5fa;
+  --bg: #f0f9ff;
+  --navy: #0f172a;
+  --text-mid: #334155;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--navy);
+  overflow-x: hidden;
+}
+
+/* ══ NAVBAR ══ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.nav-logo {
+  width: 60px;   /* adjust size */
+  height: 60px;
+  object-fit: contain;
+}
+.nav-links {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: #111827;
+  letter-spacing: 0.1px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s, color 0.2s, transform 0.18s, box-shadow 0.2s;
+}
+
+.nav-btn:hover {
+  background: #2563eb;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(37,99,235,0.35);
+}
+
+.nav-btn:active {
+  transform: scale(0.97);
+}
+
+.nav-btn.active {
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(37,99,235,0.3);
+}
+
+/* ══ PAGE TITLE BANNER ══ */
+.page-title-banner {
+  margin-top: 66px;
+  background: #0f172a;
+  padding: 22px 48px;
+  text-align: center;
+}
+
+.page-title-banner h1 {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+/* ══ SECTIONS ══ */
+.research-section {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.research-section { scroll-margin-top: 66px; }
+
+.section-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ══ SCROLL TRANSITION ══ */
+.section-reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.section-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+.section-reveal .split-title-panel   { transition-delay: 0.08s; }
+.section-reveal .split-content-panel { transition-delay: 0.18s; }
+
+.section-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(37,99,235,0.2) 30%, rgba(37,99,235,0.2) 70%, transparent);
+  position: relative;
+  z-index: 10;
+}
+
+/* ══ SPLIT LAYOUT ══ */
+.split-layout {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  padding: 80px 60px;
+  min-height: 100vh;
+}
+
+.split-title-panel {
+  flex: 0 0 42%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 60px 40px 20px;
+}
+
+.split-title-panel.right {
+  padding: 40px 20px 40px 60px;
+  order: 2;
+}
+
+.section-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: clamp(30px, 3.6vw, 52px);
+  line-height: 1.08;
+  letter-spacing: -2px;
+  color: var(--navy);
+}
+
+.section-title.right { text-align: right; }
+
+.title-accent {
+  display: block;
+  width: 52px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--blue), var(--blue-light));
+  border-radius: 2px;
+  margin-top: 20px;
+}
+.title-accent.right { margin-left: auto; }
+
+.split-divider-v {
+  width: 1px;
+  align-self: stretch;
+  background: linear-gradient(to bottom, transparent, rgba(37,99,235,0.22) 20%, rgba(37,99,235,0.22) 80%, transparent);
+  flex-shrink: 0;
+  margin: 60px 0;
+}
+
+.split-content-panel {
+  flex: 0 0 58%;
+  padding: 40px 20px 40px 60px;
+  display: flex;
+  align-items: center;
+}
+.split-content-panel.left {
+  padding: 40px 60px 40px 20px;
+  order: 1;
+}
+
+.content-glass {
+  background: rgba(240,249,255,0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(37,99,235,0.13);
+  border-radius: 20px;
+  padding: 40px 44px;
+  box-shadow: 0 4px 32px rgba(37,99,235,0.07);
+}
+
+.content-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: clamp(15px, 1.35vw, 17px);
+  line-height: 1.85;
+  color: var(--text-mid);
+  max-width: 540px;
+}
+
+/* ══ SITE-WIDE MENU DROPDOWN ══ */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+    margin-left: auto;
+    padding-bottom: 10px;
+}
+
+.dropbtn {
+    background: #0f4c81;
+    color: white;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.dropbtn:hover {
+    background: #0891b2;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: 0.3s ease;
+    min-width: 180px;
+  }
+
+.dropdown-content a {
+    color: #0f172a;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    transition: 0.25s ease;
+}
+
+.dropdown-content a:hover {
+    background: #f1f5f9;
+    color: #0f4c81;
+    padding-left: 20px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: 0.3s ease;
+}
+
+.dropdown:hover .dropdown-content,
+.dropdown.open .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* ══ DESKTOP NAV ROWS ══ */
+.nav-row1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: 66px;
+  width: 100%;
+}
+
+.nav-right {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Row 2 hidden on desktop */
+.nav-row2 {
+  display: none;
+}
+
+/* ══ MOBILE ONLY ══ */
+@media (max-width: 900px) {
+
+  /* Nav stacks: row2 (anchor links) on top, row1 (logo+menu) below */
+  nav {
+    height: auto;
+    flex-direction: column-reverse;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 0;
+    gap: 0;
+    overflow: visible;
+  }
+
+  /* Row 1: logo + menu button */
+  .nav-row1 {
+    padding: 0 12px;
+    height: 52px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Hide desktop anchor links in row1 */
+  .nav-row1 .nav-links {
+    display: none;
+  }
+
+  .nav-logo {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    margin-right: 0;
+  }
+
+  /* Row 2: anchor links shown as scrollable top strip */
+  .nav-row2 {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 7px 8px 6px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    background: white;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+  .nav-row2::-webkit-scrollbar { display: none; }
+
+  .mobile-nav-btn {
+    font-size: 11px;
+    padding: 5px 10px;
+    flex-shrink: 0;
+  }
+
+  /* Menu dropdown */
+  .dropdown {
+    flex-shrink: 0;
+    padding-bottom: 0;
+    margin-left: 0;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  /* On mobile: disable CSS :hover; only JS .open class works */
+  .dropdown:hover .dropdown-content {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+  }
+
+  .dropdown.open .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .dropbtn {
+    font-size: 12px;
+    padding: 8px 11px;
+  }
+
+  .dropdown-content {
+    right: 0;
+    top: calc(100% + 6px);
+  }
+
+  /* Page title banner — mobile */
+  .page-title-banner {
+    display: block;
+    margin-top: 88px;
+    padding: 20px 24px;
+  }
+
+  .page-title-banner h1 {
+    font-size: 1.55rem;
+  }
+
+  .research-section { scroll-margin-top: 92px; }
+
+  /* Compact sections */
+  .research-section {
+    min-height: unset;
+    align-items: flex-start;
+  }
+
+  /* Stack layout */
+  .split-layout {
+    flex-direction: column !important;
+    padding: 28px 20px 28px;
+    min-height: unset;
+    gap: 16px;
+  }
+
+  .split-title-panel,
+  .split-title-panel.right {
+    flex: unset;
+    width: 100%;
+    padding: 0;
+    order: -1 !important;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .split-content-panel,
+  .split-content-panel.left {
+    flex: unset;
+    width: 100%;
+    padding: 0;
+    order: 1 !important;
+    align-items: flex-start;
+  }
+
+  .split-divider-v { display: none; }
+
+  .section-title,
+  .section-title.right {
+    font-size: clamp(26px, 7vw, 36px);
+    text-align: left;
+  }
+
+  .title-accent.right {
+    margin-left: 0;
+  }
+
+  .content-glass { padding: 24px 22px; }
+  .content-text { font-size: 14.5px; }
+}
+
+@media (max-width: 640px) {
+  .dropbtn { padding: 7px 10px; font-size: 12px; }
+  .dropdown-content { right: 0; left: auto; min-width: 160px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <!-- Row 1: logo + anchor links (desktop) + menu btn -->
+  <div class="nav-row1">
+    <img src="images/logo.png" alt="DigiChem Logo" class="nav-logo">
+
+    <!-- Anchor links — in row 1 on desktop, hidden on mobile -->
+    <div class="nav-links" id="navLinks">
+      <button class="nav-btn" onclick="scrollToSection('compchem')">Computational Chemistry</button>
+      <button class="nav-btn" onclick="scrollToSection('aichem')">Artificial Intelligence in Chemistry</button>
+      <button class="nav-btn" onclick="scrollToSection('spectral')">Spectral Data Intelligence</button>
+      <button class="nav-btn" onclick="scrollToSection('automation')">Process Automation</button>
+    </div>
+
+    <!-- Fixed Menu dropdown on the right -->
+    <div class="nav-right">
+      <div class="dropdown" id="siteMenuDropdown">
+        <button class="dropbtn" id="siteMenuBtn">Menu ▾</button>
+        <div class="dropdown-content" id="siteMenuContent">
+          <a href="index.html">Home</a>
+          <a href="about page.html">About</a>
+          <a href="projects.html">Projects</a>
+          <a href="team.html">Our Team</a>
+          <a href="facilities.html">Lab Facilities &amp; Tools</a>
+          <a href="publications.html">Publication</a>
+          <a href="collaboration.html">Collaboration</a>
+          <a href="contact us.html">Contact us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2: mobile only — anchor links ABOVE logo + menu -->
+  <div class="nav-row2" id="navLinksMobile">
+    <button class="nav-btn mobile-nav-btn" onclick="scrollToSection('compchem')">Computational Chemistry</button>
+    <button class="nav-btn mobile-nav-btn" onclick="scrollToSection('aichem')">AI in Chemistry</button>
+    <button class="nav-btn mobile-nav-btn" onclick="scrollToSection('spectral')">Spectral Data Intelligence</button>
+    <button class="nav-btn mobile-nav-btn" onclick="scrollToSection('automation')">Process Automation</button>
+  </div>
+</nav>
+
+<!-- PAGE TITLE BANNER -->
+<div class="page-title-banner">
+  <h1>Research Areas</h1>
+</div>
+
+<!-- §1 COMPUTATIONAL CHEMISTRY -->
+<div class="research-section" id="compchem">
+  <canvas id="chemBg" class="section-canvas"></canvas>
+  <div class="split-layout section-reveal">
+    <div class="split-title-panel">
+      <div>
+        <h1 class="section-title">Computational<br>Chemistry</h1>
+        <span class="title-accent"></span>
+      </div>
+    </div>
+    <div class="split-divider-v"></div>
+    <div class="split-content-panel">
+      <div class="content-glass">
+        <p class="content-text">
+          A powerful bridge between theoretical physics and experimental discovery, allowing us to explore the molecular world through a digital lens. By applying rigorous quantum chemical methods, we investigate molecular structures, explore complex reaction mechanisms, and calculate precise energetics to uncover the fundamental principles of chemical reactivity.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- §2 ARTIFICIAL INTELLIGENCE IN CHEMISTRY -->
+<div class="research-section" id="aichem">
+  <canvas id="aiBg" class="section-canvas"></canvas>
+  <div class="split-layout section-reveal">
+    <div class="split-content-panel left">
+      <div class="content-glass">
+        <p class="content-text">
+          Artificial intelligence is transforming chemistry by turning vast amounts of raw data into actionable insights and predictive power. By employing sophisticated machine learning models, we accurately forecast chemical properties, anticipate reaction outcomes, and interpret complex spectral features — exploring chemical space far more efficiently than traditional trial-and-error methods.
+        </p>
+      </div>
+    </div>
+    <div class="split-divider-v"></div>
+    <div class="split-title-panel right">
+      <div>
+        <h1 class="section-title right">Artificial<br>Intelligence<br>in Chemistry</h1>
+        <span class="title-accent right"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- §3 SPECTRAL DATA INTELLIGENCE -->
+<div class="research-section" id="spectral">
+  <canvas id="specBg" class="section-canvas"></canvas>
+  <div class="split-layout section-reveal">
+    <div class="split-title-panel">
+      <div>
+        <h1 class="section-title">Spectral<br>Data<br>Intelligence</h1>
+        <span class="title-accent"></span>
+      </div>
+    </div>
+    <div class="split-divider-v"></div>
+    <div class="split-content-panel">
+      <div class="content-glass">
+        <p class="content-text">
+          Bridges the gap between raw analytical output and automated chemical insight. By applying advanced AI techniques to the interpretation of complex IR, NMR, and mass spectra, we move beyond manual identification toward a robust, scalable framework — reducing human error and significantly increasing the accuracy of structural determination.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- §4 PROCESS AUTOMATION -->
+<div class="research-section" id="automation">
+  <canvas id="autoBg" class="section-canvas"></canvas>
+  <div class="split-layout section-reveal">
+    <div class="split-content-panel left">
+      <div class="content-glass">
+        <p class="content-text">
+          The backbone of the modern laboratory — transforming manual protocols into seamless digital workflows. By designing custom tools to automate routine tasks, we significantly accelerate the pace of research while ensuring a level of reproducibility that is difficult to achieve by hand, freeing researchers to focus on high-level analysis.
+        </p>
+      </div>
+    </div>
+    <div class="split-divider-v"></div>
+    <div class="split-title-panel right">
+      <div>
+        <h1 class="section-title right">Process<br>Automation</h1>
+        <span class="title-accent right"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCROLL REVEAL + ACTIVE NAV -->
+<script>
+const sections = ['compchem','aichem','spectral','automation'];
+const navBtns  = document.querySelectorAll('.nav-row1 .nav-btn, .nav-row2 .nav-btn');
+const navLinks = document.getElementById('navLinks');
+
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  const navHeight = 66;
+  const top = el.getBoundingClientRect().top + window.pageYOffset - navHeight;
+  window.scrollTo({ top, behavior: 'smooth' });
+}
+
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) { entry.target.classList.add('revealed'); }
+    else { entry.target.classList.remove('revealed'); }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.section-reveal').forEach(el => revealObs.observe(el));
+
+const sectionEls = sections.map(id => document.getElementById(id));
+
+function updateActiveNav() {
+  const scrollMid = window.pageYOffset + window.innerHeight * 0.4;
+  let activeIdx = 0;
+  sectionEls.forEach((el, i) => { if (el.offsetTop <= scrollMid) activeIdx = i; });
+  // Mark active for desktop row (first 4) and mobile row (last 4)
+  const desktopBtns = document.querySelectorAll('.nav-row1 .nav-btn');
+  const mobileBtns  = document.querySelectorAll('.nav-row2 .nav-btn');
+  desktopBtns.forEach((b, i) => b.classList.toggle('active', i === activeIdx));
+  mobileBtns.forEach((b, i) => b.classList.toggle('active', i === activeIdx));
+
+  // Auto-scroll active mobile button into view
+  const activeMobileBtn = mobileBtns[activeIdx];
+  const mobileRow = document.getElementById('navLinksMobile');
+  if (activeMobileBtn && mobileRow) {
+    const btnLeft = activeMobileBtn.offsetLeft;
+    const btnWidth = activeMobileBtn.offsetWidth;
+    const stripWidth = mobileRow.offsetWidth;
+    mobileRow.scrollTo({ left: btnLeft - (stripWidth / 2) + (btnWidth / 2), behavior: 'smooth' });
+  }
+}
+
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+updateActiveNav();
+</script>
+
+<!-- BG 1: Floating dots -->
+<script>
+(function() {
+  const canvas = document.getElementById("chemBg");
+  const ctx = canvas.getContext("2d");
+  let w, h;
+  const dots = Array.from({length:15}, () => ({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    vx: (Math.random()-.5)*.3,
+    vy: (Math.random()-.5)*.3,
+    r: 2 + Math.random()*2
+  }));
+  function resize() { w = canvas.width = canvas.offsetWidth; h = canvas.height = canvas.offsetHeight; }
+  resize();
+  window.addEventListener("resize", resize);
+  (function loop() {
+    resize();
+    ctx.clearRect(0,0,w,h);
+    dots.forEach(d => {
+      d.x += d.vx; d.y += d.vy;
+      if(d.x<0||d.x>w) d.vx*=-1;
+      if(d.y<0||d.y>h) d.vy*=-1;
+      ctx.beginPath();
+      ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
+      ctx.fillStyle="rgba(56,189,248,0.5)";
+      ctx.fill();
+    });
+    requestAnimationFrame(loop);
+  })();
+})();
+</script>
+
+<!-- BG 2: Sweeping glow line -->
+<script>
+(function() {
+  const canvas = document.getElementById("aiBg");
+  const ctx = canvas.getContext("2d");
+  let w, h, x = 0;
+  function resize() { w = canvas.width = canvas.offsetWidth; h = canvas.height = canvas.offsetHeight; }
+  resize();
+  window.addEventListener("resize", resize);
+  (function loop() {
+    resize();
+    ctx.clearRect(0,0,w,h);
+    const g = ctx.createLinearGradient(x-50,0,x+50,0);
+    g.addColorStop(0,"transparent");
+    g.addColorStop(.5,"rgba(37,99,235,0.25)");
+    g.addColorStop(1,"transparent");
+    ctx.fillStyle = g;
+    ctx.fillRect(x-50,0,100,h);
+    x += 1;
+    if(x > w+50) x = -50;
+    requestAnimationFrame(loop);
+  })();
+})();
+</script>
+
+<!-- BG 3: Spectral waves -->
+<script>
+(function() {
+  const canvas = document.getElementById("specBg");
+  const ctx = canvas.getContext("2d");
+  let w, h, time = 0;
+  function resize() { w = canvas.width = canvas.offsetWidth; h = canvas.height = canvas.offsetHeight; }
+  resize();
+  window.addEventListener("resize", resize);
+  (function animate() {
+    resize();
+    ctx.clearRect(0, 0, w, h);
+    time += 0.01;
+    for (let i = 0; i < 4; i++) {
+      ctx.beginPath();
+      let baseY = h * (0.3 + i * 0.15);
+      for (let x = 0; x < w; x += 5) {
+        let y = baseY + Math.sin(x * 0.01 + time + i) * 10 + Math.sin(x * 0.02 + time * 0.5) * 20;
+        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = "rgba(37,99,235," + (0.2 + i * 0.1) + ")";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+    requestAnimationFrame(animate);
+  })();
+})();
+</script>
+
+<!-- BG 4: Node path animation -->
+<script>
+(function() {
+  const canvas = document.getElementById("autoBg");
+  const ctx = canvas.getContext("2d");
+  let w, h;
+  let steps = [];
+  let dot = { index: 0, progress: 0 };
+  function resize() {
+    w = canvas.width = canvas.offsetWidth;
+    h = canvas.height = canvas.offsetHeight;
+    steps = [
+      {x: w*0.2, y: h*0.5},
+      {x: w*0.4, y: h*0.3},
+      {x: w*0.6, y: h*0.6},
+      {x: w*0.8, y: h*0.4}
+    ];
+  }
+  resize();
+  window.addEventListener("resize", resize);
+  (function animate() {
+    resize();
+    ctx.clearRect(0, 0, w, h);
+    ctx.strokeStyle = "rgba(37,99,235,0.15)";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(steps[0].x, steps[0].y);
+    steps.forEach(s => ctx.lineTo(s.x, s.y));
+    ctx.stroke();
+    steps.forEach((s, i) => {
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, 5, 0, Math.PI*2);
+      ctx.fillStyle = i === dot.index ? "rgba(37,99,235,0.6)" : "rgba(37,99,235,0.2)";
+      ctx.fill();
+    });
+    let current = steps[dot.index];
+    let next = steps[(dot.index + 1) % steps.length];
+    dot.progress += 0.01;
+    let x = current.x + (next.x - current.x) * dot.progress;
+    let y = current.y + (next.y - current.y) * dot.progress;
+    ctx.beginPath();
+    ctx.arc(x, y, 4, 0, Math.PI*2);
+    ctx.fillStyle = "rgba(37,99,235,0.8)";
+    ctx.fill();
+    if (dot.progress >= 1) { dot.progress = 0; dot.index = (dot.index + 1) % steps.length; }
+    requestAnimationFrame(animate);
+  })();
+})();
+</script>
+
+<!-- Site-wide menu dropdown: tap-to-toggle on mobile -->
+<script>
+(function() {
+  const btn = document.getElementById('siteMenuBtn');
+  const dropdown = document.getElementById('siteMenuDropdown');
+
+  btn.addEventListener('click', function(e) {
+    if (window.innerWidth <= 900) {
+      e.stopPropagation();
+      dropdown.classList.toggle('open');
+    }
+  });
+
+  document.addEventListener('click', function() {
+    dropdown.classList.remove('open');
+  });
+
+  window.addEventListener('scroll', function() {
+    dropdown.classList.remove('open');
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>

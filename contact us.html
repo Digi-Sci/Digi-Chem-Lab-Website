@@ -343,7 +343,7 @@ button[type="submit"]:disabled{
     </div>
     <div class="input-group">
       <i class="fa-solid fa-building"></i>
-      <input type="text" name="affiliation" placeholder="Institute/Organization">
+      <input type="text" name="organization" placeholder="Institute/Organization">
     </div>
     <div class="input-group">
       <i class="fa-solid fa-phone"></i>
@@ -417,7 +417,7 @@ document.getElementById("contactForm").addEventListener("submit", async function
   const data = {
     name: formData.get("name"),
     email: formData.get("email"),
-    affiliation: formData.get("affiliation"),
+    organization: formData.get("organization"),
     phone: formData.get("phone"),
     subject: formData.get("subject"),
     message: formData.get("message")

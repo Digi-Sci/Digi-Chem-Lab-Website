@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Lab Facilities & Tools | DigiChem Lab</title>
+<link rel="icon" type="image/svg" href="images/logo.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --font:'Inter',sans-serif;
+  --bg:#f0f9ff;--dark:#0f172a;--navy:#0a192f;
+  --blue:#0f4c81;--blue-mid:#1e6fb5;
+  --text-mid:#334155;--text-muted:#475569;--text-subtle:#64748b;
+  --border:#e2e8f0;--surface:#ffffff;
+  --shadow-card:0 8px 25px rgba(0,0,0,0.06);
+  --shadow-hover:0 16px 40px rgba(15,76,129,0.16);
+  --radius-card:20px;--radius-pill:60px;
+}
+
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--dark);overflow-x:hidden}
+/* Scrollbar — using browser default */
+
+
+
+
+/* ══ NAVBAR ══ */
+.navbar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:#ffffff;
+  border-bottom:1px solid rgba(0,0,0,0.08);
+}
+
+/* Row 1: logo (left) + anchor btns (center) + menu (right) */
+.nav-row1{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:68px;
+}
+
+.nav-logo {
+  height: 40px;
+  width: auto;
+  flex-shrink:0;
+}
+
+/* Center anchor buttons on desktop */
+.nav-buttons{
+  display:flex;gap:12px;align-items:center;
+  position:absolute;left:50%;transform:translateX(-50%);
+}
+
+.nav-right{display:flex;align-items:center;}
+
+.nav-btn{
+  font-size:0.875rem;font-weight:600;letter-spacing:0.01em;
+  padding:10px 22px;white-space:nowrap;border-radius:8px;
+  border:none;background:#ffffff;color:#111827;cursor:pointer;
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  transition:background 0.22s ease,color 0.22s ease,transform 0.22s ease,box-shadow 0.22s ease;
+}
+.nav-btn:hover{background:#2563eb;color:#ffffff;transform:translateY(-2px);box-shadow:0 4px 16px rgba(37,99,235,0.35);}
+.nav-btn svg{width:15px;height:15px;flex-shrink:0;}
+.nav-btn.pop{animation:popBtn 0.36s cubic-bezier(.36,.07,.19,.97);}
+@keyframes popBtn{
+  0%{transform:scale(1);}
+  30%{transform:scale(1.10) translateY(-2px);}
+  60%{transform:scale(0.97);}
+  100%{transform:scale(1) translateY(-2px);}
+}
+
+/* Row 2: mobile-only anchor strip — hidden on desktop */
+.nav-row2{
+  display:none;
+}
+
+/* ══ DROPDOWN ══ */
+.dropdown{position:relative;display:inline-block;padding-bottom:10px;}
+.dropbtn{background:#0f4c81;color:white;padding:10px 18px;font-size:14px;border:none;border-radius:8px;cursor:pointer;transition:background 0.3s ease;}
+.dropbtn:hover{background:#0891b2;}
+.dropdown-content{
+  position:absolute;top:100%;right:0;
+  background:#ffffff;border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity 0.3s ease,transform 0.3s ease,visibility 0.3s ease;
+  min-width:180px;z-index:1001;
+}
+.dropdown-content a{color:#0f172a;padding:12px 16px;text-decoration:none;display:block;font-weight:500;transition:background 0.2s ease,padding-left 0.2s ease;}
+.dropdown-content a:hover{background:#f1f5f9;color:#0f4c81;padding-left:20px;}
+.dropdown:hover .dropdown-content,
+.dropdown.open .dropdown-content{opacity:1;visibility:visible;transform:translateY(0);}
+
+/* ══ HERO TITLE BANNER ══ */
+.hero{margin-top:68px;background:#0f172a;padding:22px 48px;text-align:center;}
+@media(max-width:768px){
+  .hero{margin-top:0;} /* nav is sticky/fixed stacked, body flow handles it */
+}
+.hero h1{font-size:clamp(1.4rem,3vw,2rem);font-weight:700;letter-spacing:-0.02em;color:#ffffff;}
+
+/* ══ SECTION ══ */
+.section{padding:72px 5% 80px;max-width:1300px;margin:0 auto;}
+.section-title{
+  font-size:2.0rem;font-weight:600;text-align:center;margin-bottom:.6rem;
+  background:linear-gradient(135deg,#0f172a,#0f4c81);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  display:inline-block;width:100%;
+}
+.section-subtitle{text-align:center;font-size:1rem;color:var(--text-mid);max-width:640px;margin:0 auto 2.5rem;line-height:1.65;}
+
+/* ══ FACILITIES BOX ══ */
+.facilities-box{
+  background:var(--surface);padding:56px 48px;border-radius:25px;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);max-width:1200px;width:100%;margin:0 auto;
+}
+
+/* ══ GROUP ══ */
+@keyframes fadeGroupIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.facility-group{animation:fadeGroupIn .45s ease both;}
+
+.group-divider{display:flex;align-items:center;gap:19px;margin:52px 0 28px;}
+.facility-group:first-child .group-divider{margin-top:0;}
+.group-divider-line{flex:1;height:1px;background:var(--border);}
+.group-divider-label{font-size:1.05rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(37,99,235,1);white-space:nowrap;}
+
+/* ══ CARDS GRID ══ */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;}
+
+/* ══ FACILITY CARD ══ */
+.facility-card{
+  background:var(--#0f4c81);
+  padding:36px 28px 32px;
+  border-radius:var(--radius-card);
+  box-shadow:var(--shadow-card);
+  border:1px solid transparent;
+  text-align:center;
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;overflow:hidden;
+  cursor:default;
+  /* scroll-in starts here */
+  opacity:0;
+  transform:translateY(32px);
+  transition:
+    opacity 0.6s cubic-bezier(.22,1,.36,1),
+    transform 0.6s cubic-bezier(.22,1,.36,1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+.facility-card.card-visible{
+  opacity:1;
+  transform:translateY(0);
+}
+/* stagger per position in grid */
+.cards-grid .facility-card:nth-child(1){transition-delay:0s;}
+.cards-grid .facility-card:nth-child(2){transition-delay:0.12s;}
+.cards-grid .facility-card:nth-child(3){transition-delay:0.24s;}
+
+.facility-card:hover{
+  box-shadow:var(--shadow-hover);
+  border-color:rgba(15,76,129,.16);
+}
+
+/* shimmer sweep */
+.facility-card::before{
+  content:'';
+  position:absolute;top:0;left:-75%;
+  width:55%;height:100%;
+  background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,0.5) 50%,transparent 100%);
+  transform:skewX(-18deg);
+  pointer-events:none;
+  opacity:0;
+}
+.facility-card:hover::before{
+  animation:shimmer 0.6s ease forwards;
+}
+@keyframes shimmer{
+  0%{left:-75%;opacity:1;}
+  100%{left:130%;opacity:0;}
+}
+
+/* bottom accent line */
+.facility-card::after{
+  content:'';
+  position:absolute;bottom:0;left:0;
+  height:3px;width:0%;
+  background:linear-gradient(90deg,var(--blue),#38bdf8);
+  transition:width 0.4s ease;
+}
+.facility-card:hover::after{width:100%;}
+
+/* icon */
+.facility-card .card-icon{
+  font-size:36px;color:var(--blue);
+  margin-bottom:16px;display:block;
+  transition:transform 0.45s cubic-bezier(.34,1.56,.64,1), color 0.3s ease;
+}
+.facility-card:hover .card-icon{
+  transform:scale(1.2) rotate(-8deg);
+  color:var(--blue-mid);
+}
+
+.facility-card h3{font-size:1.1rem;font-weight:700;color:var(--dark);margin-bottom:10px;line-height:1.3;}
+.facility-card p{font-size:.88rem;color:var(--text-muted);line-height:1.65;font-weight:400;}
+.card-tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:18px;}
+.card-tags:empty{margin-top:0;}
+.card-tag{
+  font-size:.72rem;font-weight:600;color:var(--blue);
+  background:#eff6ff;border:1px solid #bfdbfe;
+  padding:5px 14px;border-radius:var(--radius-pill);
+  transition:background 0.25s ease,color 0.25s ease,border-color 0.25s ease;
+}
+.facility-card:hover .card-tag{background:var(--blue);color:white;border-color:var(--blue);}
+
+/* ══ MODAL ══ */
+footer{background:#0f172a;height:60px;}
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;z-index:2000;visibility:hidden;opacity:0;transition:.25s ease;}
+.modal.active{visibility:visible;opacity:1;}
+.modal-content{background:white;border-radius:48px;padding:2.2rem;width:90%;max-width:400px;text-align:center;transform:scale(.96);transition:.3s;box-shadow:0 40px 60px rgba(0,0,0,.3);position:relative;}
+.modal.active .modal-content{transform:scale(1);}
+.modal-content h2{color:var(--dark);margin-bottom:1rem;}
+.modal-content p{color:#475569;margin-bottom:1.5rem;}
+.input-group{margin:1rem 0;}
+.input-group input{width:100%;padding:14px 18px;border:1.5px solid var(--border);border-radius:var(--radius-pill);font-size:1rem;outline:none;transition:.2s;font-family:var(--font);}
+.input-group input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(16,185,129,.12);}
+.modal-btn{background:var(--blue);width:100%;padding:12px;border:none;border-radius:var(--radius-pill);font-weight:700;color:white;cursor:pointer;margin-top:.5rem;font-family:var(--font);font-size:1rem;}
+.close-modal{position:absolute;top:20px;right:28px;font-size:28px;cursor:pointer;color:#64748b;}
+.login-message{margin-top:1rem;font-size:.8rem;}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:768px){
+  /* Stack nav: anchor row on top, logo+menu below */
+  .navbar{
+    display:flex;
+    flex-direction:column-reverse;
+  }
+
+  /* Row 1 becomes the bottom row on mobile */
+  .nav-row1{
+    padding:0 16px;
+    height:52px;
+  }
+
+  /* Hide centered desktop anchor buttons */
+  .nav-buttons{
+    display:none;
+  }
+
+  .nav-logo{height:32px;}
+
+  /* Show mobile anchor strip as top row */
+  .nav-row2{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:4px;
+    padding:8px 8px 6px;
+    border-bottom:1px solid rgba(0,0,0,0.06);
+    background:white;
+  }
+
+  .nav-row2 .nav-btn{
+    font-size:0.72rem;
+    padding:5px 10px;
+    gap:5px;
+  }
+
+  .nav-row2 .nav-btn svg{width:13px;height:13px;}
+
+  .hero{padding:18px 20px;margin-top:104px;}
+  .section{padding:56px 4% 64px;}
+  .facilities-box{padding:36px 20px;}
+  .cards-grid{grid-template-columns:1fr;gap:18px;}
+  .facility-card:hover{transform:translateY(-6px) !important;}
+}
+@media(max-width:400px){
+  .nav-row2 .nav-btn{font-size:0.65rem;padding:5px 8px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="navbar">
+
+  <!-- Row 1: logo (left) + anchor links (center, desktop) + menu (right) -->
+  <div class="nav-row1">
+    <img src="images/logo.png" alt="DigiChem Logo" class="nav-logo">
+
+    <!-- Anchor buttons — centered on desktop, hidden on mobile -->
+    <div class="nav-buttons">
+      <a href="#software-section" class="nav-btn" onclick="popBtn(this); smoothScrollTo('software-section'); return false;">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="1" y="3" width="14" height="10" rx="2"/>
+          <path d="M4 7h2M4 10h5"/>
+        </svg>
+        <span>Software</span>
+      </a>
+      <a href="#infra-section" class="nav-btn" onclick="popBtn(this); smoothScrollTo('infra-section'); return false;">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="1" y="2" width="14" height="4" rx="1"/>
+          <rect x="1" y="9" width="14" height="4" rx="1"/>
+          <circle cx="13" cy="4" r="0.8" fill="currentColor" stroke="none"/>
+          <circle cx="13" cy="11" r="0.8" fill="currentColor" stroke="none"/>
+        </svg>
+        <span>Infrastructure</span>
+      </a>
+    </div>
+
+    <div class="nav-right">
+      <div class="dropdown" id="menuDropdown">
+        <button class="dropbtn" id="menuBtn">Menu ▾</button>
+        <div class="dropdown-content">
+          <a href="index.html">Home</a>
+          <a href="about page.html">About</a>
+          <a href="research.html">Research</a>
+          <a href="projects.html">Projects</a>
+          <a href="team.html">Our Team</a>
+          <a href="publications.html">Publication</a>
+          <a href="collaboration.html">Collaboration</a>
+          <a href="contact us.html">Contact us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2: mobile-only anchor strip (appears ABOVE logo+menu row) -->
+  <div class="nav-row2">
+    <a href="#software-section" class="nav-btn" onclick="popBtn(this); smoothScrollTo('software-section'); return false;">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="1" y="3" width="14" height="10" rx="2"/>
+        <path d="M4 7h2M4 10h5"/>
+      </svg>
+      Software
+    </a>
+    <a href="#infra-section" class="nav-btn" onclick="popBtn(this); smoothScrollTo('infra-section'); return false;">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="1" y="2" width="14" height="4" rx="1"/>
+        <rect x="1" y="9" width="14" height="4" rx="1"/>
+        <circle cx="13" cy="4" r="0.8" fill="currentColor" stroke="none"/>
+        <circle cx="13" cy="11" r="0.8" fill="currentColor" stroke="none"/>
+      </svg>
+      Infrastructure
+    </a>
+  </div>
+
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Lab Facilities &amp; Tools</h1>
+</div>
+
+<!-- CONTENT -->
+<section class="section">
+  <div data-aos="fade-up">
+    <h2 class="section-title">Lab Overview</h2>
+    <p class="section-subtitle"></p>
+  </div>
+
+  <div class="facilities-box" data-aos="fade-up">
+
+    <!-- SOFTWARE GROUP -->
+    <div class="facility-group" id="software-section">
+      <div class="group-divider">
+        <div class="group-divider-line"></div>
+        <span class="group-divider-label">Software</span>
+        <div class="group-divider-line"></div>
+      </div>
+      <div class="cards-grid">
+        <div class="facility-card">
+          <i class="fas fa-atom card-icon"></i>
+          <h3>Quantum Chemistry Tools</h3>
+          <p>Industry-standard software for DFT and semi-empirical calculations across complex molecular systems.</p>
+          <div class="card-tags"><span class="card-tag">Gaussian</span><span class="card-tag">ORCA</span></div>
+        </div>
+        <div class="facility-card">
+          <i class="fas fa-brain card-icon"></i>
+          <h3>Python-based ML Frameworks</h3>
+          <p>ML pipelines for predictive modelling, neural network training, and chemical data mining at scale.</p>
+          <div class="card-tags"></div>
+        </div>
+        <div class="facility-card">
+          <i class="fas fa-chart-line card-icon"></i>
+          <h3>Data Analysis Tools</h3>
+          <p>Robust tooling for statistical analysis, visualisation, and interpretation of large experimental datasets.</p>
+          <div class="card-tags"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INFRASTRUCTURE GROUP -->
+    <div class="facility-group" id="infra-section">
+      <div class="group-divider">
+        <div class="group-divider-line"></div>
+        <span class="group-divider-label">Infrastructure</span>
+        <div class="group-divider-line"></div>
+      </div>
+      <div class="cards-grid">
+        <div class="facility-card">
+          <i class="fas fa-server card-icon"></i>
+          <h3>High-Performance Computing System</h3>
+          <p>Dedicated HPC cluster enabling large-scale quantum and molecular dynamics simulations with parallel processing.</p>
+          <div class="card-tags"></div>
+        </div>
+        <div class="facility-card">
+          <i class="fas fa-desktop card-icon"></i>
+          <h3>Workstations for Simulation & Analysis</h3>
+          <p>High-spec workstations configured for computationally intensive simulations and real-time data analysis workflows.</p>
+          <div class="card-tags"></div>
+        </div>
+        <div class="facility-card">
+          <i class="fas fa-cloud card-icon"></i>
+          <h3>Cloud-Based Computation Resources</h3>
+          <p>Scalable cloud infrastructure for on-demand computation, remote collaboration, and secure storage of research data.</p>
+          <div class="card-tags"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer></footer>
+
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" id="closeModalBtn">&times;</span>
+    <h2><i class="fas fa-flask"></i> Lab Access</h2>
+    <p>Sign in to your researcher account</p>
+    <div class="input-group"><input type="text" id="loginUsername" placeholder="Email / Username" value="researcher@dclab.edu"></div>
+    <div class="input-group"><input type="password" id="loginPassword" placeholder="Password" value="digitalchem"></div>
+    <button class="modal-btn" id="submitLoginBtn">Sign In &nbsp;<i class="fas fa-arrow-right-to-bracket"></i></button>
+    <div class="login-message" id="loginMessage"></div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init({ duration: 800, once: false, mirror: true, offset: 50 });
+
+/* ── Smooth scroll with fixed nav offset ── */
+function smoothScrollTo(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const navH = document.querySelector('.navbar').offsetHeight;
+  const top = el.getBoundingClientRect().top + window.scrollY - navH - 16;
+  window.scrollTo({ top, behavior: 'smooth' });
+}
+
+/* ── Nav btn pop ── */
+function popBtn(el) {
+  el.classList.remove('pop');
+  void el.offsetWidth;
+  el.classList.add('pop');
+  el.addEventListener('animationend', () => el.classList.remove('pop'), { once: true });
+}
+
+/* ── Mobile dropdown ── */
+const menuBtn = document.getElementById('menuBtn');
+const menuDropdown = document.getElementById('menuDropdown');
+menuBtn.addEventListener('click', e => { e.stopPropagation(); menuDropdown.classList.toggle('open'); });
+document.addEventListener('click', () => menuDropdown.classList.remove('open'));
+
+/* ── Detect touch device ── */
+const isTouch = () => window.matchMedia('(hover: none)').matches;
+
+/* ── Scroll-in observer with stagger ── */
+const cardObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('card-visible');
+    } else {
+      // only reset if well above viewport so re-entry re-animates
+      if (entry.boundingClientRect.top > 0) {
+        entry.target.classList.remove('card-visible');
+      }
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.facility-card').forEach(card => cardObserver.observe(card));
+
+/* ── Mouse-tilt (desktop only) ── */
+document.querySelectorAll('.facility-card').forEach(card => {
+  let rafId = null;
+
+  card.addEventListener('mousemove', e => {
+    if (isTouch()) return;
+    cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => {
+      const rect = card.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / (rect.width / 2);   // -1 … 1
+      const dy = (e.clientY - cy) / (rect.height / 2);
+      const tiltX = dy * -6;
+      const tiltY = dx * 6;
+      card.style.transition = 'box-shadow 0.1s ease, border-color 0.3s ease';
+      card.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-8px) scale(1.025)`;
+      card.style.boxShadow = `${-dx * 10}px ${Math.abs(dy) * 6 + 14}px 36px rgba(15,76,129,0.15)`;
+    });
+  });
+
+  card.addEventListener('mouseleave', () => {
+    if (isTouch()) return;
+    cancelAnimationFrame(rafId);
+    card.style.transition = 'transform 0.5s cubic-bezier(.22,1,.36,1), box-shadow 0.5s ease, border-color 0.35s ease';
+    card.style.transform = '';
+    card.style.boxShadow = '';
+  });
+});
+
+/* ── Modal ── */
+const modal = document.getElementById('loginModal');
+const closeBtn = document.getElementById('closeModalBtn');
+const loginMsg = document.getElementById('loginMessage');
+const closeModal = () => { modal.classList.remove('active'); loginMsg.innerHTML = ''; document.body.style.overflow = 'auto'; };
+closeBtn.addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+document.getElementById('submitLoginBtn').addEventListener('click', () => {
+  const u = document.getElementById('loginUsername').value.trim();
+  const p = document.getElementById('loginPassword').value.trim();
+  if (!u || !p) {
+    loginMsg.innerHTML = '<span style="color:#ef4444;">❌ Please fill in all credentials</span>';
+  } else {
+    loginMsg.innerHTML = '<span style="color:#10b981;">✅ Access Granted! Welcome to DigiChem Lab.</span>';
+    setTimeout(() => { closeModal(); showNotification('🔬 Welcome ' + u + '! Explore AI-driven research.'); }, 800);
+  }
+});
+function showNotification(msg) {
+  const el = document.createElement('div');
+  el.innerText = msg;
+  el.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#0f172a;color:#10b981;padding:14px 28px;border-radius:40px;z-index:9999;font-weight:500;box-shadow:0 4px 15px rgba(0,0,0,0.2);border-left:4px solid #10b981;font-family:Inter,sans-serif;';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 3000);
+}
+</script>
+</body>
+</html>

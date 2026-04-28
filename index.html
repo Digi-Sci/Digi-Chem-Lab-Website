@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Home | DigiChem Lab</title>
+    <link rel="icon" type="image/svg" href="images/logo.svg">
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- AOS Library for scroll animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- TOP BAR with animation -->
+<div class="top-bar">
+    <p>🚀 Recent Updates: Congratulations Aarti Gawali for Successfully Defending PhD Viva </p>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+    <div class="logo-container">
+        <div class="logo-text">DigiChem Lab</div>
+        <img src="images\logo.png" alt="Logo" class="logo">
+        <!-- Placeholder for logo image (using a font-awesome flask to simulate) -->
+        
+    </div>
+    <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#innovation">Innovation</a>
+        <a href="#impact">Impact</a>
+        <a href="#leadership">Leadership</a>
+        <a href="#cta">Collaboration</a>
+    </div>
+    
+
+<!-- Hamburger toggle — visible on mobile only -->
+<button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+</button>
+
+<div class="dropdown">
+    <button class="dropbtn">Menu ▾</button>
+    
+    <div class="dropdown-content">
+        <a href="about page.html">About</a>
+        <a href="research.html">Research</a>
+        <a href="projects.html">Projects</a>
+        <a href="team.html">Our Team</a>
+        <a href="facilities.html">Lab Facilities & Tools</a>
+        <a href="publications.html">Publication</a>
+        <a href="collaboration.html">Collaboration</a>
+        <a href="contact us.html">Contact us</a>
+    </div>
+</div>
+
+</nav>
+
+<!-- SECTION 1: HERO (Home) -->
+<section id="home" class="hero">
+    <div id="particles-js"></div>
+    <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+        <h1>DigiChem Lab</h1>
+        <h3>AI-Driven Research in Computational Chemistry, Spectral Intelligence & Chemical Data Science</h3>
+        <p>Bridging Chemistry, Computation, and Artificial Intelligence for Real-World Impact</p>
+        <div class="buttons">
+            <a href="research.html"><button class="secondary explore-btn">Explore Research</button></a>
+            <a href="projects.html"><button class="secondary projects-btn">View Projects</button></a>
+            <a href="collaboration.html"><button class="secondary collaborate-btn">Collaborate With Us</button></a>
+        </div>
+    </div>
+</section>
+
+
+<!-- SECTION 2: ABOUT -->
+<section id="about" class="section" data-aos="fade-right">
+    <h2>About</h2>
+    <p style="text-align: center; max-width: 1000px; margin: 0 auto; font-size: 1.3rem; color: #334155;">The Digital Chemistry Lab at the University of Mumbai focuses on integrating Computational Chemistry, Artificial Intelligence, and Data-Driven approaches to solve Complex Chemical Problems.
+Our work combines Theoretical understanding with Modern Computational Tools to develop Efficient, Scalable, and Intelligent Solutions for Chemical Analysis and Research. We develop cutting-edge platforms such as Spectral Hub, which simplifies complex Spectral Data Analysis,and Q-Nebula,an AI-Powered Quantum Chemistry Environment for 
+ Molecular Modelling and Prediction. By combining Chemometrics, Quantum Mechanics, and Machine Learning, We Aim to Empower Researchers, Industries and Academic Institutions with Intelligent tools that Accelerate innovation and Decision-Making in Chemistry</p>
+
+</div>
+</section>
+
+<!-- SECTION 3: RESEARCH AREAS -->
+<section id="research" class="section">
+
+    <!-- BIG OUTER BOX -->
+    <div class="research-box" data-aos="fade-up">
+
+        <h2 data-aos="fade-up">Research Areas</h2>
+
+        <!-- SMALL BOXES -->
+        <div class="research-cards">
+
+            <div class="research-card" data-aos="zoom-in" data-aos-delay="100">
+                <i class="fas fa-microchip"></i>
+                <h3>Computational Chemistry</h3>
+                <p>Quantum chemical modeling of molecular systems and reaction mechanisms</p>
+            </div>
+
+            <div class="research-card" data-aos="zoom-in" data-aos-delay="200">
+                <i class="fas fa-robot"></i>
+                <h3>AI in Chemistry</h3>
+                <p>Machine learning models for chemical prediction and data analysis</p>
+            </div>
+
+            <div class="research-card" data-aos="zoom-in" data-aos-delay="300">
+                <i class="fas fa-chart-line"></i>
+                <h3>Spectral Intelligence</h3>
+                <p>AI-based interpretation of IR, NMR, and Mass spectra</p>
+            </div>
+
+            <div class="research-card" data-aos="zoom-in" data-aos-delay="400">
+                <i class="fas fa-cogs"></i>
+                <h3>Process Automation</h3>
+                <p>Digital tools for automating laboratory workflows</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- SECTION 4: INNOVATION (Key Innovation + Spectral Hub) -->
+<section id="innovation" class="section">
+
+    <div class="innovation-box" data-aos="fade-up">
+
+        <h2>Key Innovation</h2>
+
+        <!-- NEW TITLE BELOW KEY INNOVATION -->
+        <h3 class="innovation-title">Spectral-Hub</h3>
+
+        <p class="innovation-para">
+            We are developing <strong class="gradient-text">Spectral-Hub</strong>, an AI-powered platform that transforms spectral data into real-time chemical insights.
+        </p>
+
+        <div class="innovation-cards">
+
+            <div class="innovation-card" data-aos="fade-right">
+                <i class="fas fa-wave-square"></i>
+                <h3>
+                    <span class="dark-text">Unmix</span>-<span class="blue-text">X</span>
+                </h3>
+                <p>1.Advanced signal separation</br></p>
+                <p>2.Extracts chemical patterns</br></p>
+                <p>3.Handles mixed datasets</br></p>
+            </div>
+
+            <div class="innovation-card" data-aos="fade-up">
+                <i class="fas fa-microscope"></i>
+                <h3>
+                    <span class="dark-text">Decode</span>-<span class="blue-text">X</span>
+                </h3>
+                <p>1.Automated data interpretation</br></p>
+                <p>2.Generates chemical insights</br></p>
+                <p>3.Predicts structures</br></p>
+            </div>
+
+            <div class="innovation-card" data-aos="fade-left">
+                <i class="fas fa-chart-line"></i>
+                <h3>
+                    <span class="dark-text">Predict</span>-<span class="blue-text">X</span>
+                </h3>
+                <p>1.AI-based simulation</br></p>
+                <p>2.Predicts unknown spectra</br></p>
+                <p>3.Analyzes new compounds</br></p>
+            </div>
+
+        </div>
+
+        <!-- NEW Q-NEBULA TITLE MOVED UP -->
+        <h3 class="innovation-title qnebula-title">Q-Nebula</h3>
+
+        <p class="innovation-para">
+            <strong class="gradient-text">Q-Nebula</strong>, AI-Powered Quantum Chemistry Platform, Q-Nebula is a cloud-enabled computational chemistry platform that integrates quantum mechanical calculations with AI/ML models to deliver faster and more scalable molecular insights.
+        </p>
+
+        <div class="innovation-cards">
+
+            <div class="innovation-card" data-aos="fade-right">
+                <i class="fa-solid fa-atom"></i>
+                <h3>
+                    <span class="dark-text">Q</span>-<span class="blue-text">Core</span>
+                </h3>
+                <p>High-accuracy simulations for:- </br></p>
+                <p>1. Molecular structure optimization </br></p>
+                <p>2. Energy calculations (HOMO-LUMO, band gaps) </br></p>
+                <p>3. Reaction pathway analysis </br></p>
+            </div>
+
+            <div class="innovation-card" data-aos="fade-up">
+                <i class="fa-solid fa-dna"></i>
+                <h3>
+                    <span class="dark-text">Q</span>-<span class="blue-text">Intellect</span>
+                </h3>
+                <p> Hybrid AI models trained on quantum data to:- </br></p>
+                <p>1. Predict molecular properties instantly</br></p>
+                <p>2. Reduce computational cost significantly</br></p>
+                <p>3. Enable high-throughput virtual screening</br></p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- SECTION 5: IMPACT -->
+<section id="impact" class="section">
+
+    <div class="innovation-box" data-aos="fade-up">
+        <h2 data-aos="fade-up">Impact</h2>
+
+        <div class="impact-cards">
+            
+            <div class="impact-card" data-aos="flip-left">
+                <i class="fa-solid fa-bolt"></i>
+                <p>Faster and more efficient chemical analysis</p>
+            </div>
+
+            <div class="impact-card" data-aos="flip-left" data-aos-delay="100">
+                <i class="fa-solid fa-sack-dollar"></i>
+                <p>Reduced cost and time in laboratory workflows</p>
+            </div>
+
+            <div class="impact-card" data-aos="flip-left" data-aos-delay="200">
+                <i class="fa-solid fa-robot"></i>
+                <p>Integration of AI into chemical research</p>
+            </div>
+
+            <div class="impact-card" data-aos="flip-left" data-aos-delay="300">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <p>Training students in modern digital chemistry</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- SECTION 6: LEADERSHIP & TEAM combined (Leadership + Team preview) -->
+<section id="leadership" class="section">
+    <h2 data-aos="fade-up">Leadership</h2>
+    <div class="leadership-card" data-aos="flip-up">
+        <i class="fas fa-chalkboard-user" style="font-size: 3rem; color: #0f4c81; margin-bottom: 1rem;"></i>
+        <h3>Dr.Purav Badani</h3>
+        <p>Associate Professor</p>
+        <p>Department of Chemistry</p>
+        <p>University of Mumbai</p>
+        
+    </div>
+    <div style="text-align: center; margin-top: 3rem;" data-aos="fade-up">
+        <p style="font-weight: 500;">Our lab consists of passionate researchers and students working across computational chemistry, AI, and spectroscopy.</p>
+        <a href="TEAM.html"><button class="primary team-view-btn">View Full Team <i class="fas fa-arrow-right"></i></button></a>
+    </div>
+</section>
+
+<!-- CTA Section (Collaborate) -->
+<section id="cta" class="cta" data-aos="zoom-in" class="section">
+    <h2>Collaborate With Us</h2>
+    <a href="contact us.html"><button id="collabModalBtn">Contact Us <i class="fas fa-envelope"></i></button></a>
+</section>
+
+<footer>
+    <p>© 2026 DigiChem Lab | University of Mumbai | Pioneering AI in Chemical Sciences</p>
+</footer>
+
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

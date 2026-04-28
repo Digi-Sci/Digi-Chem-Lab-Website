@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects & Innovations | DigiChem Lab</title>
+<link rel="icon" type="image/svg" href="images/logo.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0; padding: 0;
+    font-family: 'Inter', sans-serif;
+  }
+
+  :root {
+    --blue: #2563eb;
+    --blue-dark: #1d4ed8;
+    --blue-light: #3b82f6;
+    --white: #ffffff;
+    --text-dark: #1e293b;
+    --text-mid: #334155;
+    --text-light: #64748b;
+    --card-shadow: 0 4px 24px rgba(37,99,235,0.10);
+    --card-hover-shadow: 0 8px 48px rgba(37,99,235,0.28);
+    --glow: 0 0 32px rgba(37,99,235,0.5), 0 0 8px rgba(37,99,235,0.3);
+  }
+  
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--blue);
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  [data-anim] {
+    opacity: 0;
+    transition: opacity 0.65s cubic-bezier(.22,1,.36,1),
+                transform 0.65s cubic-bezier(.22,1,.36,1);
+    will-change: opacity, transform;
+  }
+
+  [data-anim="fade-up"]    { transform: translateY(48px); }
+  [data-anim="fade-down"]  { transform: translateY(-48px); }
+  [data-anim="fade-left"]  { transform: translateX(-52px); }
+  [data-anim="fade-right"] { transform: translateX(52px); }
+  [data-anim="zoom-in"]    { transform: scale(0.88); }
+  [data-anim="zoom-up"]    { transform: scale(0.92) translateY(32px); }
+
+  [data-anim].in-view {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-delay="1"] { transition-delay: 0.08s; }
+  [data-delay="2"] { transition-delay: 0.18s; }
+  [data-delay="3"] { transition-delay: 0.28s; }
+  [data-delay="4"] { transition-delay: 0.40s; }
+  [data-delay="5"] { transition-delay: 0.52s; }
+
+  /* ══ NAV ══ */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 0 48px;
+    height: 68px;
+    background: #ffffff;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .nav-logo {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .nav-buttons {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .nav-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-btn {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    padding: 10px 22px;
+    white-space: nowrap;
+    border-radius: 8px;
+    border: none;
+    background: #ffffff;
+    color: #111827;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s, border-color 0.18s, transform 0.14s, box-shadow 0.18s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-btn:hover,
+  .nav-btn:active {
+    background: #2563eb;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(37,99,235,0.35);
+  }
+
+  .nav-btn svg {
+    width: 15px; height: 15px;
+    flex-shrink: 0;
+  }
+
+  .nav-btn.pop { animation: popBtn 0.36s cubic-bezier(.36,.07,.19,.97); }
+
+  @keyframes popBtn {
+    0%   { transform: scale(1); }
+    30%  { transform: scale(1.10) translateY(-2px); }
+    60%  { transform: scale(0.97); }
+    100% { transform: scale(1) translateY(-2px); }
+  }
+
+  /* ══ DROPDOWN ══ */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+  }
+  .dropbtn {
+    background: #0f4c81;
+    color: white;
+    padding: 10px 18px;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  .dropbtn:hover {
+    background: #0891b2;
+  }
+  .dropdown-content {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: 0.3s ease;
+    min-width: 180px;
+  }
+  .dropdown-content a {
+    color: #0f172a;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-weight: 500;
+    transition: 0.25s ease;
+  }
+  .dropdown-content a:hover {
+    background: #f1f5f9;
+    color: #0f4c81;
+    padding-left: 20px;
+  }
+  .dropdown:hover .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* ══ PAGE TITLE BANNER ══ */
+  .page-title-banner {
+    margin-top: 68px;
+    background: #0f172a;
+    padding: 22px 48px;
+    text-align: center;
+  }
+
+  .page-title-banner h1 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+  }
+
+  /* ══ SECTIONS ══ */
+  .section {
+    min-height: 100vh;
+    padding: 90px 64px 90px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .section canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .section-inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: var(--text-dark);
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+  .section-title .accent { color: var(--blue); }
+
+  .section-desc {
+    font-size: 1.07rem;
+    font-weight: 400;
+    color: var(--text-mid);
+    line-height: 1.75;
+    max-width: 720px;
+    margin-bottom: 48px;
+  }
+
+  /* ══ CARDS ══ */
+  .cards-row {
+    display: grid;
+    gap: 24px;
+    margin-bottom: 44px;
+  }
+  .cards-row.three { grid-template-columns: repeat(3, 1fr); }
+  .cards-row.two   { grid-template-columns: repeat(2, 1fr); }
+
+  .card {
+    background: var(--white);
+    border-radius: 18px;
+    padding: 32px 28px;
+    box-shadow: var(--card-shadow);
+    border: 1.5px solid rgba(37,99,235,0.07);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.22s cubic-bezier(.34,1.56,.64,1),
+                box-shadow 0.22s, border-color 0.22s;
+  }
+
+  .card[data-anim] {
+    transition: opacity 0.65s cubic-bezier(.22,1,.36,1),
+                transform 0.65s cubic-bezier(.22,1,.36,1);
+  }
+  .card[data-anim].in-view { opacity: 1; transform: none; }
+  .card[data-anim].in-view:hover {
+    transform: translateY(-7px) scale(1.025);
+    box-shadow: var(--card-hover-shadow);
+    border-color: rgba(37,99,235,0.28);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: -60px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(37,99,235,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .card.popped { animation: cardPop 0.42s cubic-bezier(.36,.07,.19,.97) forwards; }
+
+  @keyframes cardPop {
+    0%   { transform: scale(1); }
+    28%  { transform: scale(1.07) translateY(-10px); box-shadow: 0 0 60px rgba(37,99,235,0.55); }
+    55%  { transform: scale(0.97) translateY(-3px); }
+    80%  { transform: scale(1.015) translateY(-5px); }
+    100% { transform: scale(1.025) translateY(-7px); }
+  }
+
+  .card-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(37,99,235,0.08);
+    color: var(--blue);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 11px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  .card-badge .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--blue);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.5; transform: scale(0.75); }
+  }
+
+  .card-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+  }
+  .card-title .x { color: var(--blue); }
+
+  .card-body {
+    font-size: 0.91rem;
+    font-weight: 400;
+    color: var(--text-light);
+    line-height: 1.72;
+  }
+
+  .card-footer {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(37,99,235,0.08);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--blue);
+  }
+  .card-footer svg { width: 14px; height: 14px; }
+
+  /* ══ KEY VALUES ══ */
+  .key-values {
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 18px;
+    padding: 28px 32px;
+    border: 1.5px solid rgba(37,99,235,0.12);
+    max-width: 700px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+  }
+
+  .key-values[data-anim] {
+    transition: opacity 0.65s cubic-bezier(.22,1,.36,1),
+                transform 0.65s cubic-bezier(.22,1,.36,1);
+  }
+  .key-values[data-anim].in-view { opacity: 1; transform: none; }
+  .key-values[data-anim].in-view:hover {
+    transform: translateY(-5px) scale(1.018);
+    box-shadow: var(--card-hover-shadow);
+    border-color: rgba(37,99,235,0.28);
+  }
+
+  .key-values::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: -60px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(37,99,235,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .key-values.popped { animation: cardPop 0.42s cubic-bezier(.36,.07,.19,.97) forwards; }
+
+  .key-values h3 {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 16px;
+  }
+
+  .key-values ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .key-values li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.935rem;
+    font-weight: 500;
+    color: var(--text-mid);
+    line-height: 1.5;
+  }
+
+  .key-values li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--blue);
+    margin-top: 6px;
+    box-shadow: 0 0 6px rgba(37,99,235,0.5);
+  }
+
+  /* ══ DIVIDER ══ */
+  .section-divider {
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue), #93c5fd, var(--blue));
+    opacity: 0.2;
+  }
+
+  /* ══ RIPPLE ══ */
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(37,99,235,0.16);
+    transform: scale(0);
+    animation: rippleOut 0.65s linear;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  @keyframes rippleOut {
+    to { transform: scale(4); opacity: 0; }
+  }
+
+  @media (max-width: 900px) {
+    .cards-row.three,
+    .cards-row.two { grid-template-columns: 1fr; }
+    .section { padding: 80px 24px 60px; }
+    nav { padding: 0 12px; }
+    .nav-logo { width: 58px; height: 58px; }
+    .page-title-banner { padding: 18px 24px; }
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 0 8px; height: 68px; }
+    .nav-logo { width: 52px; height: 52px; }
+    .nav-buttons {
+      position: static;
+      transform: none;
+      gap: 4px;
+      flex: 1;
+      justify-content: center;
+    }
+    .nav-btn {
+      font-size: 0.72rem;
+      padding: 7px 8px;
+      gap: 4px;
+    }
+    .nav-btn svg { display: none; }
+    .dropbtn { padding: 7px 10px; font-size: 12px; }
+    .dropdown-content { right: 0; left: auto; min-width: 160px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <!-- Logo on the left -->
+  <img src="images/logo.png" alt="DigiChem Logo" class="nav-logo">
+
+  <!-- Nav buttons next to logo -->
+  <div class="nav-buttons">
+    <a href="#spectral-hub" class="nav-btn" onclick="popBtn(this)">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 8c2-4 4-4 7 0s5 4 7 0"/></svg>
+      Spectral Hub
+    </a>
+    <a href="#q-nebula" class="nav-btn" onclick="popBtn(this)">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="3"/><circle cx="8" cy="8" r="7"/></svg>
+      Q-Nebula
+    </a>
+  </div>
+
+  <!-- Menu dropdown on the right -->
+  <div class="nav-right">
+    <div class="dropdown">
+      <button class="dropbtn">Menu ▾</button>
+      <div class="dropdown-content">
+        <a href="index.html">Home</a>
+        <a href="about page.html">About</a>
+        <a href="research.html">Research</a>
+        <a href="team.html">Our Team</a>
+        <a href="facilities.html">Lab Facilities & Tools</a>
+        <a href="publications.html">Publication</a>
+        <a href="collaboration.html">Collaboration</a>
+        <a href="contact us.html">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE TITLE BANNER -->
+<div class="page-title-banner">
+  <h1>Projects &amp; Innovations</h1>
+</div>
+
+<!-- ════════════ SPECTRAL HUB ════════════ -->
+<section class="section" id="spectral-hub">
+  <canvas id="spectralCanvas"></canvas>
+  <div class="section-inner">
+
+    <div class="section-title" data-anim="fade-left">
+      Spectral<span class="accent"> Hub</span>
+    </div>
+
+    <p class="section-desc" data-anim="fade-up" data-delay="1">
+      An advanced AI-powered platform for real-time chemical analysis using spectral data. By combining sophisticated signal processing with machine learning, it enables accurate interpretation of complex spectral patterns — automating analysis for speed and precision.
+    </p>
+
+    <div class="cards-row three">
+      <div class="card" data-anim="fade-up" data-delay="2" onclick="popCard(this,event)">
+        <div class="card-badge"><span class="dot"></span>Engine</div>
+        <div class="card-title">Unmix-<span class="x">X</span></div>
+        <div class="card-body">A powerful spectral unmixing engine that precisely separates overlapping signals in complex chemical mixtures. Using advanced algorithms, it deconvolutes spectral data into individual components, enabling accurate identification and quantification without the need for chromatographic separation.</div>
+        <div class="card-footer"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 8h12M9 4l5 4-5 4"/></svg>Signal Separation</div>
+      </div>
+
+      <div class="card" data-anim="fade-up" data-delay="3" onclick="popCard(this,event)">
+        <div class="card-badge"><span class="dot"></span>Intelligence</div>
+        <div class="card-title">Decode-<span class="x">X</span></div>
+        <div class="card-body">An intelligent system that automates the interpretation of spectral data from IR, NMR, and mass spectrometry. By combining machine learning with domain expertise, it quickly decodes complex patterns to identify chemical structures and extract meaningful insights.</div>
+        <div class="card-footer"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 8h12M9 4l5 4-5 4"/></svg>Pattern Decoding</div>
+      </div>
+
+      <div class="card" data-anim="fade-up" data-delay="4" onclick="popCard(this,event)">
+        <div class="card-badge"><span class="dot"></span>Prediction</div>
+        <div class="card-title">Predict-<span class="x">X</span></div>
+        <div class="card-body">A quantum chemistry–assisted tool that generates simulated spectral data for known and novel compounds. By combining first-principles calculations with machine learning models, it predicts molecular behavior and properties, enabling fast analysis and decision-making without extensive lab experiments.</div>
+        <div class="card-footer"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 8h12M9 4l5 4-5 4"/></svg>Quantum Prediction</div>
+      </div>
+    </div>
+
+    <div class="key-values" data-anim="zoom-up" data-delay="5" onclick="popCard(this,event)">
+      <h3>Key Values</h3>
+      <ul>
+        <li>Reduce experimental time and cost</li>
+        <li>Enable real-time monitoring and analysis</li>
+        <li>Improve accuracy in complex mixture interpretation</li>
+        <li>Scalable for industrial and research applications</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════ Q-NEBULA ════════════ -->
+<section class="section" id="q-nebula">
+  <canvas id="nebulaCanvas"></canvas>
+  <div class="section-inner">
+
+    <div class="section-title" data-anim="fade-left">
+      Q-<span class="accent">Nebula</span>
+    </div>
+
+    <p class="section-desc" data-anim="fade-up" data-delay="1">
+      Q-Nebula is a cloud-enabled computational chemistry platform that integrates quantum mechanical calculations with AI/ML models to deliver faster and more scalable molecular insights.
+    </p>
+
+    <div class="cards-row two">
+      <div class="card" data-anim="fade-up" data-delay="2" onclick="popCard(this,event)">
+        <div class="card-badge"><span class="dot"></span>Core Engine</div>
+        <div class="card-title">Q-<span class="x">Core</span></div>
+        <div class="card-body">High-accuracy simulations enable precise molecular structure optimization, ensuring stable and realistic configurations. They provide detailed energy calculations, including HOMO–LUMO levels and band gaps, to understand electronic properties. Additionally, they analyze reaction pathways, helping predict mechanisms, intermediates, and energy barriers.</div>
+        <div class="card-footer"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 8h12M9 4l5 4-5 4"/></svg>Quantum Simulation</div>
+      </div>
+
+      <div class="card" data-anim="fade-up" data-delay="3" onclick="popCard(this,event)">
+        <div class="card-badge"><span class="dot"></span>AI/ML Layer</div>
+        <div class="card-title">Q-<span class="x">Intellect</span></div>
+        <div class="card-body">Hybrid AI models trained on quantum data enable instant prediction of molecular properties with high accuracy. They significantly reduce computational cost compared to traditional methods, making analysis more efficient. This approach also supports high-throughput virtual screening, accelerating the discovery of new compounds.</div>
+        <div class="card-footer"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 8h12M9 4l5 4-5 4"/></svg>AI Prediction</div>
+      </div>
+    </div>
+
+    <div class="key-values" data-anim="zoom-up" data-delay="4" onclick="popCard(this,event)">
+      <h3>Key Values</h3>
+      <ul>
+        <li>Accelerate R&amp;D and material discovery</li>
+        <li>Reduce dependency on expensive computational resources</li>
+        <li>Enable predictive chemistry at scale</li>
+        <li>Ideal for academia, startups and industry</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<script>
+const animEls = Array.from(document.querySelectorAll('[data-anim]'));
+
+function checkVisibility() {
+  const vh = window.innerHeight;
+  animEls.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    const inView = rect.top < vh * 0.88 && rect.bottom > vh * 0.08;
+    if (inView) { el.classList.add('in-view'); }
+    else { el.classList.remove('in-view'); }
+  });
+}
+
+let rafPending = false;
+window.addEventListener('scroll', () => {
+  if (!rafPending) {
+    rafPending = true;
+    requestAnimationFrame(() => { checkVisibility(); rafPending = false; });
+  }
+}, { passive: true });
+
+window.addEventListener('resize', checkVisibility, { passive: true });
+window.addEventListener('load', checkVisibility);
+document.addEventListener('DOMContentLoaded', checkVisibility);
+
+function popBtn(el) {
+  el.classList.remove('pop');
+  void el.offsetWidth;
+  el.classList.add('pop');
+  el.addEventListener('animationend', () => el.classList.remove('pop'), { once: true });
+}
+
+function popCard(card, e) {
+  const rect = card.getBoundingClientRect();
+  const ripple = document.createElement('div');
+  ripple.classList.add('ripple');
+  const size = Math.max(rect.width, rect.height);
+  ripple.style.width = ripple.style.height = size + 'px';
+  ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+  ripple.style.top  = (e.clientY - rect.top  - size / 2) + 'px';
+  card.appendChild(ripple);
+  ripple.addEventListener('animationend', () => ripple.remove());
+
+  card.classList.remove('popped');
+  void card.offsetWidth;
+  card.classList.add('popped');
+  card.addEventListener('animationend', () => card.classList.remove('popped'), { once: true });
+
+  card.style.boxShadow = '0 0 60px rgba(37,99,235,0.55), 0 0 120px rgba(37,99,235,0.22)';
+  setTimeout(() => card.style.boxShadow = '', 700);
+}
+
+/* ══ SPECTRAL CANVAS ══ */
+(function () {
+  const canvas = document.getElementById("spectralCanvas");
+  const ctx = canvas.getContext("2d");
+  let w, h;
+  function resize() {
+    const s = canvas.parentElement;
+    w = canvas.width = s.offsetWidth;
+    h = canvas.height = s.offsetHeight;
+  }
+  window.addEventListener("resize", resize);
+  resize();
+  const waves = [];
+  for (let i = 0; i < 4; i++) {
+    waves.push({
+      amplitude: 40 + Math.random() * 30,
+      frequency: 0.008 + Math.random() * 0.01,
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.015 + Math.random() * 0.02,
+      opacity: 0.2 + Math.random() * 0.3
+    });
+  }
+  function draw() {
+    ctx.fillStyle = "rgba(240,249,255,0.3)";
+    ctx.fillRect(0, 0, w, h);
+    waves.forEach(wave => {
+      ctx.beginPath();
+      for (let x = 0; x < w; x++) {
+        const y = h / 2 + Math.sin(x * wave.frequency + wave.phase) * wave.amplitude;
+        ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = `rgba(37,99,235,${wave.opacity})`;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      wave.phase += wave.speed;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ══ NEBULA CANVAS ══ */
+(function () {
+  const canvas = document.getElementById("nebulaCanvas");
+  const ctx = canvas.getContext("2d");
+  let w, h, nebulas = [];
+
+  function resize() {
+    const s = canvas.parentElement;
+    w = canvas.width = s.offsetWidth;
+    h = canvas.height = s.offsetHeight;
+    nebulas = [];
+    for (let i = 0; i < 5; i++) {
+      nebulas.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: 150 + Math.random() * 250,
+        color: `rgba(${150 + Math.random()*50}, ${200 + Math.random()*40}, 255, 0.25)`
+      });
+    }
+  }
+  window.addEventListener("resize", resize);
+  resize();
+
+  const particles = [];
+  for (let i = 0; i < 150; i++) {
+    particles.push({
+      x: Math.random() * (w || 1200),
+      y: Math.random() * (h || 800),
+      r: Math.random() * 2,
+      dx: (Math.random() - 0.5) * 0.25,
+      dy: (Math.random() - 0.5) * 0.25,
+      opacity: 0.3 + Math.random() * 0.3
+    });
+  }
+
+  const orbits = [];
+  for (let i = 0; i < 4; i++) {
+    orbits.push({
+      radius: 70 + i * 50,
+      angle: Math.random() * Math.PI * 2,
+      speed: 0.006 + i * 0.003
+    });
+  }
+
+  function drawNebula() {
+    nebulas.forEach(n => {
+      const g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r);
+      g.addColorStop(0, n.color);
+      g.addColorStop(1, "rgba(240,249,255,0)");
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, w, h);
+    });
+  }
+
+  function draw() {
+    ctx.fillStyle = "rgba(240,249,255,0.4)";
+    ctx.fillRect(0, 0, w, h);
+    drawNebula();
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(186,230,253,${p.opacity})`;
+      ctx.fill();
+      p.x += p.dx; p.y += p.dy;
+      if (p.x < 0 || p.x > w) p.dx *= -1;
+      if (p.y < 0 || p.y > h) p.dy *= -1;
+    });
+    orbits.forEach(o => {
+      const cx = w / 2 + Math.cos(o.angle) * o.radius;
+      const cy = h / 2 + Math.sin(o.angle) * o.radius;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 4, 0, Math.PI * 2);
+      ctx.fillStyle = "#7dd3fc";
+      ctx.fill();
+      o.angle += o.speed;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>

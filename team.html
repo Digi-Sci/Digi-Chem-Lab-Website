@@ -10,200 +10,103 @@
 
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
 html { scroll-behavior: smooth; }
-
 body{font-family:'Inter',sans-serif;background:#f0f9ff;text-align:center;color:#0f172a}
-
 #bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
 
 /* ══ NAV LOGO ══ */
 .nav-logo {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  margin-right: 8px;
-  margin-left: 0;
-  text-decoration: none;
-  order: 0;
-  height: auto;
-  padding: 0;
+  display: flex; align-items: center; flex-shrink: 0;
+  margin-right: 8px; margin-left: 0;
+  text-decoration: none; order: 0; height: auto; padding: 0;
 }
+.nav-logo img { height: 46px; width: auto; object-fit: contain; }
 
-.nav-logo img {
-  height: 46px;
-  width: auto;
-  object-fit: contain;
-}
-
-/* ══ TOP WHITE NAV (research.html style) ══ */
+/* ══ TOP WHITE NAV ══ */
 .top-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1100;
-  background: #ffffff;
-  height: 66px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0 16px;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-  gap: 0;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1100;
+  background: #ffffff; height: 66px;
+  display: flex; flex-direction: row; flex-wrap: nowrap;
+  align-items: center; justify-content: flex-start;
+  padding: 0 16px; border-bottom: 1px solid rgba(0,0,0,0.08); gap: 0;
 }
 
 .nav-links {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 6px;
-  align-items: center;
-  flex: 1;
-  justify-content: center;
-  min-width: 0;
-  order: 0;
-  width: auto;
-  height: auto;
-  overflow: visible;
-  border-bottom: none;
-  padding: 0;
+  display: flex; flex-direction: row; flex-wrap: nowrap;
+  gap: 6px; align-items: center; flex: 1;
+  justify-content: center; min-width: 0; order: 0;
+  width: auto; height: auto; overflow: visible;
+  border-bottom: none; padding: 0;
 }
 
 .nav-btn {
-  font-family: 'Inter', sans-serif;
-  font-size: 12.5px;
-  font-weight: 600;
-  padding: 9px 16px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  background: transparent;
-  color: #111827;
-  letter-spacing: 0.1px;
-  white-space: nowrap;
-  flex-shrink: 0;
+  font-family: 'Inter', sans-serif; font-size: 12.5px; font-weight: 600;
+  padding: 9px 16px; border-radius: 10px; border: none; cursor: pointer;
+  background: transparent; color: #111827; letter-spacing: 0.1px;
+  white-space: nowrap; flex-shrink: 0;
   transition: background 0.2s, color 0.2s, transform 0.18s, box-shadow 0.2s;
 }
-
 .nav-btn:hover {
-  background: #2563eb;
-  color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(37,99,235,0.35);
+  background: #2563eb; color: #ffffff;
+  transform: translateY(-2px); box-shadow: 0 4px 14px rgba(37,99,235,0.35);
 }
-
-.nav-btn:active {
-  background: #2563eb;
-  color: #ffffff;
-  transform: scale(0.97);
-}
-
+.nav-btn:active { background: #2563eb; color: #ffffff; transform: scale(0.97); }
 .nav-btn.active {
-  background: #2563eb;
-  color: #ffffff;
-  box-shadow: 0 4px 14px rgba(37,99,235,0.3);
+  background: #2563eb; color: #ffffff; box-shadow: 0 4px 14px rgba(37,99,235,0.3);
 }
 
 /* ══ MENU DROPDOWN ══ */
 .dropdown {
-  position: relative;
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  margin-left: auto;
+  position: relative; display: flex; align-items: center;
+  flex-shrink: 0; margin-left: auto;
 }
-
 .dropbtn {
-  background: #0f4c81;
-  color: white;
-  padding: 10px 18px;
-  font-size: 14px;
-  font-family: 'Inter', sans-serif;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s ease;
+  background: #0f4c81; color: white; padding: 10px 18px;
+  font-size: 14px; font-family: 'Inter', sans-serif;
+  border: none; border-radius: 8px; cursor: pointer; transition: 0.3s ease;
 }
-
-.dropbtn:hover {
-  background: #0891b2;
-}
-
+.dropbtn:hover { background: #0891b2; }
 .dropdown-content {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background: #ffffff;
-  border-radius: 12px;
+  position: absolute; top: 100%; right: 0;
+  background: #ffffff; border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-  transition: 0.3s ease;
-  min-width: 180px;
-  z-index: 1200;
+  opacity: 0; visibility: hidden; transform: translateY(10px);
+  transition: 0.3s ease; min-width: 180px; z-index: 1200;
 }
-
 .dropdown-content a {
-  color: #0f172a;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  transition: 0.25s ease;
-  text-align: left;
+  color: #0f172a; padding: 12px 16px; text-decoration: none;
+  display: block; font-family: 'Inter', sans-serif; font-weight: 500;
+  transition: 0.25s ease; text-align: left;
+}
+.dropdown-content a:hover { background: #f1f5f9; color: #0f4c81; padding-left: 20px; }
+.dropdown:hover .dropdown-content, .dropdown.open .dropdown-content {
+  opacity: 1; visibility: visible; transform: translateY(0);
 }
 
-.dropdown-content a:hover {
-  background: #f1f5f9;
-  color: #0f4c81;
-  padding-left: 20px;
-}
-
-.dropdown:hover .dropdown-content,
-.dropdown.open .dropdown-content {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-/* ══ DARK HEADER BAR (below white nav) ══ */
+/* ══ DARK HEADER BAR ══ */
 .dark-header {
-  position: fixed;
-  top: 66px;
-  left: 0; right: 0;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: fixed; top: 66px; left: 0; right: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
   padding: 18px 30px;
-  background: rgba(15,23,42,0.95);
-  backdrop-filter: blur(10px);
-  color: white;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  background: rgba(15,23,42,0.95); backdrop-filter: blur(10px);
+  color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.15);
 }
-
 .page-title {
-  margin: 0;
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  font-weight: 600;
-  color: white;
-  text-align: center;
-  font-family: 'Inter', sans-serif;
+  margin: 0; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 600;
+  color: white; text-align: center; font-family: 'Inter', sans-serif;
 }
-
 .page-title i { margin-right: 10px; color: white; }
 
-/* ══ CONTENT OFFSET: white nav (66px) + dark header (~62px) ══ */
-.page-wrapper {
-  position: relative;
-  z-index: 1;
-  padding-top: 128px;
+/* ══ CONTENT OFFSET ══ */
+.page-wrapper { position: relative; z-index: 1; padding-top: 148px; }
+
+/* KEY FIX: scroll-margin-top uses CSS var updated by JS */
+:root { --nav-total-height: 128px; }
+.section {
+  margin: 80px 0; padding: 0 20px;
+  scroll-margin-top: var(--nav-total-height);
 }
 
-.section { margin: 80px 0; padding: 0 20px; scroll-margin-top: 128px; }
 h2 { font-size: 32px; font-weight: 700; margin-bottom: 30px; color: #0f172a; font-family: 'Inter', sans-serif; }
 .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
 
@@ -222,8 +125,7 @@ h2 { font-size: 32px; font-weight: 700; margin-bottom: 30px; color: #0f172a; fon
   backdrop-filter: blur(10px);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  color: #ffffff;
-  border: 1px solid rgba(255,255,255,0.25);
+  color: #ffffff; border: 1px solid rgba(255,255,255,0.25);
 }
 .front img {
   width: 160px; height: 160px; border-radius: 50%;
@@ -242,108 +144,35 @@ h2 { font-size: 32px; font-weight: 700; margin-bottom: 30px; color: #0f172a; fon
 
 /* ══ MOBILE ══ */
 @media (max-width: 900px) {
-
-  /* Two rows:
-     Row 1 = scrollable nav buttons (full width)
-     Row 2 = logo (left) + Menu button (right) */
   .top-nav {
-    height: auto;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: stretch;
-    justify-content: flex-start;
-    padding: 0;
-    gap: 0;
-    overflow: visible;
+    height: auto; flex-direction: row; flex-wrap: wrap;
+    align-items: stretch; justify-content: flex-start; padding: 0; gap: 0; overflow: visible;
   }
-
-  /* Row 1 — full-width scrollable nav strip */
   .nav-links {
-    order: 1;
-    flex: 0 0 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0 10px;
-    height: 42px;
-    gap: 4px;
-    border-bottom: 1px solid rgba(0,0,0,0.07);
-    min-width: 0;
+    order: 1; flex: 0 0 100%; width: 100%;
+    display: flex; flex-direction: row; flex-wrap: nowrap;
+    overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+    justify-content: flex-start; align-items: center;
+    padding: 0 10px; height: 42px; gap: 4px;
+    border-bottom: 1px solid rgba(0,0,0,0.07); min-width: 0;
   }
   .nav-links::-webkit-scrollbar { display: none; }
-
-  .nav-btn {
-    font-size: 11px;
-    padding: 5px 10px;
-    flex-shrink: 0;
-  }
-
-  /* Row 2 — logo on left, menu on right */
+  .nav-btn { font-size: 11px; padding: 5px 10px; flex-shrink: 0; }
   .nav-logo {
-    order: 2;
-    flex: 1 1 auto;
-    display: flex;
-    align-items: center;
-    height: 48px;
-    margin-right: 0;
-    margin-left: 0;
-    padding: 0 10px;
+    order: 2; flex: 1 1 auto; display: flex; align-items: center;
+    height: 48px; margin-right: 0; margin-left: 0; padding: 0 10px;
   }
-  .nav-logo img {
-    height: 38px;
-    width: auto;
-  }
-
+  .nav-logo img { height: 38px; width: auto; }
   .dropdown {
-    order: 2;
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    height: 48px;
-    margin-left: 0;
-    padding: 0 10px 0 0;
+    order: 2; flex: 0 0 auto; display: flex; align-items: center;
+    height: 48px; margin-left: 0; padding: 0 10px 0 0;
   }
-
-  /* On mobile: disable CSS :hover — only JS .open works */
-  .dropdown:hover .dropdown-content {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    display: none;
-  }
-
-  .dropdown.open .dropdown-content {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    display: block;
-  }
-
-  .dropbtn {
-    font-size: 12px;
-    padding: 8px 11px;
-  }
-
-  .dropdown-content {
-    right: 0;
-    top: calc(100% + 6px);
-  }
-
-  /* Nav total height = 42px (links row) + 48px (logo/menu row) = 90px */
-  .dark-header {
-    top: 90px;
-  }
-
-  .page-wrapper {
-    padding-top: 178px; /* 90px nav + ~88px dark-header */
-  }
-
+  .dropdown:hover .dropdown-content { opacity: 0; visibility: hidden; transform: translateY(10px); }
+  .dropdown.open .dropdown-content { opacity: 1; visibility: visible; transform: translateY(0); }
+  .dropbtn { font-size: 12px; padding: 8px 11px; }
+  .dropdown-content { right: 0; top: calc(100% + 6px); }
+  .dark-header { top: 90px; }
+  .page-wrapper { padding-top: 178px; }
   .page-title { font-size: 18px; }
 }
 
@@ -356,10 +185,9 @@ h2 { font-size: 32px; font-weight: 700; margin-bottom: 30px; color: #0f172a; fon
 </head>
 
 <body>
-
 <canvas id="bg-canvas"></canvas>
 
-<!-- ══ WHITE TOP NAV (research.html style) ══ -->
+<!-- ══ WHITE TOP NAV ══ -->
 <nav class="top-nav" id="topNav">
   <a href="index.html" class="nav-logo">
     <img src="logo.png" alt="Digital Chemistry Lab Logo">
@@ -370,7 +198,6 @@ h2 { font-size: 32px; font-weight: 700; margin-bottom: 30px; color: #0f172a; fon
     <button class="nav-btn" onclick="scrollToSection('students')">Students</button>
     <button class="nav-btn" onclick="scrollToSection('collaborators')">Collaborators</button>
   </div>
-
   <div class="dropdown" id="siteMenuDropdown">
     <button class="dropbtn" id="siteMenuBtn">Menu ▾</button>
     <div class="dropdown-content" id="siteMenuContent">
@@ -387,7 +214,7 @@ h2 { font-size: 32px; font-weight: 700; margin-bottom: 30px; color: #0f172a; fon
 </nav>
 
 <!-- ══ DARK HEADER BAR ══ -->
-<div class="dark-header">
+<div class="dark-header" id="darkHeader">
   <h1 class="page-title"><i class="fa-solid fa-users"></i> Team Members</h1>
 </div>
 
@@ -398,7 +225,6 @@ h2 { font-size: 32px; font-weight: 700; margin-bottom: 30px; color: #0f172a; fon
   <div class="section" id="leadership">
     <h2>Leadership</h2>
     <div class="container">
-
       <div class="card">
         <div class="inner">
           <div class="front">
@@ -411,7 +237,6 @@ h2 { font-size: 32px; font-weight: 700; margin-bottom: 30px; color: #0f172a; fon
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -419,7 +244,6 @@ h2 { font-size: 32px; font-weight: 700; margin-bottom: 30px; color: #0f172a; fon
   <div class="section" id="research-team">
     <h2>Research Team</h2>
     <div class="container">
-
       <div class="card">
         <div class="inner">
           <div class="front">
@@ -432,7 +256,6 @@ h2 { font-size: 32px; font-weight: 700; margin-bottom: 30px; color: #0f172a; fon
           </div>
         </div>
       </div>
-
       <div class="card">
         <div class="inner">
           <div class="front">
@@ -445,7 +268,6 @@ h2 { font-size: 32px; font-weight: 700; margin-bottom: 30px; color: #0f172a; fon
           </div>
         </div>
       </div>
-
       <div class="card">
         <div class="inner">
           <div class="front">
@@ -458,7 +280,6 @@ h2 { font-size: 32px; font-weight: 700; margin-bottom: 30px; color: #0f172a; fon
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -466,35 +287,38 @@ h2 { font-size: 32px; font-weight: 700; margin-bottom: 30px; color: #0f172a; fon
   <div class="section" id="students">
     <h2>Students</h2>
     <div class="container">
-
       <div class="card">
-        <div class="front">
-          <h3>Anindita Mukherjee</h3>
-          <p>(Working on developing Q-intellect)</p>
+        <div class="inner">
+          <div class="front">
+            <h3>Anindita Mukherjee</h3>
+            <p>(Working on developing Q-intellect)</p>
+          </div>
         </div>
       </div>
-
       <div class="card">
-        <div class="front">
-          <h3>Gauri Sawant</h3>
-          <p>(Working on signal separation techniques)</p>
+        <div class="inner">
+          <div class="front">
+            <h3>Gauri Sawant</h3>
+            <p>(Working on signal separation techniques)</p>
+          </div>
         </div>
       </div>
-
       <div class="card">
-        <div class="front">
-          <h3>Ronak Kambli</h3>
-          <p>(Working on QM calculations for exploring reaction mechanism)</p>
+        <div class="inner">
+          <div class="front">
+            <h3>Ronak Kambli</h3>
+            <p>(Working on QM calculations for exploring reaction mechanism)</p>
+          </div>
         </div>
       </div>
-
       <div class="card">
-        <div class="front">
-          <h3>Vikas Shinde</h3>
-          <p>(Working on AI assisted QM calculations)</p>
+        <div class="inner">
+          <div class="front">
+            <h3>Vikas Shinde</h3>
+            <p>(Working on AI assisted QM calculations)</p>
+          </div>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -502,42 +326,46 @@ h2 { font-size: 32px; font-weight: 700; margin-bottom: 30px; color: #0f172a; fon
   <div class="section" id="collaborators">
     <h2>Collaborators</h2>
     <div class="container">
-
       <div class="card">
-        <div class="front">
-          <h3>Dr. Satyajit Saha</h3>
-          <p>Institute of Chemical Technology, Mumbai</p>
+        <div class="inner">
+          <div class="front">
+            <h3>Dr. Satyajit Saha</h3>
+            <p>Institute of Chemical Technology, Mumbai</p>
+          </div>
         </div>
       </div>
-
       <div class="card">
-        <div class="front">
-          <h3>Dr. Ganesh Chaturbhuj</h3>
-          <p>Institute of Chemical Technology, Mumbai</p>
+        <div class="inner">
+          <div class="front">
+            <h3>Dr. Ganesh Chaturbhuj</h3>
+            <p>Institute of Chemical Technology, Mumbai</p>
+          </div>
         </div>
       </div>
-
       <div class="card">
-        <div class="front">
-          <h3>Dr. Achintya Dutta</h3>
-          <p>IIT Bombay</p>
+        <div class="inner">
+          <div class="front">
+            <h3>Dr. Achintya Dutta</h3>
+            <p>IIT Bombay</p>
+          </div>
         </div>
       </div>
-
       <div class="card">
-        <div class="front">
-          <h3>Dr. A. V. Karnik</h3>
-          <p>University of Mumbai</p>
+        <div class="inner">
+          <div class="front">
+            <h3>Dr. A. V. Karnik</h3>
+            <p>University of Mumbai</p>
+          </div>
         </div>
       </div>
-
       <div class="card">
-        <div class="front">
-          <h3>Dr. R. M. Kamble</h3>
-          <p>University of Mumbai</p>
+        <div class="inner">
+          <div class="front">
+            <h3>Dr. R. M. Kamble</h3>
+            <p>University of Mumbai</p>
+          </div>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -547,96 +375,79 @@ h2 { font-size: 32px; font-weight: 700; margin-bottom: 30px; color: #0f172a; fon
 <script>
 const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
-
 function resize(){canvas.width=window.innerWidth;canvas.height=document.body.scrollHeight||window.innerHeight}
 resize();
 window.addEventListener('resize',resize);
 window.addEventListener('scroll',()=>{canvas.height=document.body.scrollHeight});
-
-const NODES=60;
-const nodes=[];
-
-for(let i=0;i<NODES;i++){
-  nodes.push({
-    x:Math.random()*window.innerWidth,
-    y:Math.random()*(document.body.scrollHeight||3000),
-    vx:(Math.random()-.5)*0.4,
-    vy:(Math.random()-.5)*0.4,
-    r:Math.random()*3+2,
-    type:Math.random()<0.3?'ring':'dot'
-  });
-}
-
+const NODES=60;const nodes=[];
+for(let i=0;i<NODES;i++){nodes.push({x:Math.random()*window.innerWidth,y:Math.random()*(document.body.scrollHeight||3000),vx:(Math.random()-.5)*0.4,vy:(Math.random()-.5)*0.4,r:Math.random()*3+2,type:Math.random()<0.3?'ring':'dot'});}
 function draw(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   const H=document.body.scrollHeight||window.innerHeight;
   if(canvas.height!==H){canvas.height=H}
-
   for(let i=0;i<nodes.length;i++){
-    const n=nodes[i];
-    n.x+=n.vx;n.y+=n.vy;
+    const n=nodes[i];n.x+=n.vx;n.y+=n.vy;
     if(n.x<0||n.x>window.innerWidth)n.vx*=-1;
     if(n.y<0||n.y>H)n.vy*=-1;
-
     for(let j=i+1;j<nodes.length;j++){
-      const m=nodes[j];
-      const dx=n.x-m.x,dy=n.y-m.y;
+      const m=nodes[j];const dx=n.x-m.x,dy=n.y-m.y;
       const dist=Math.sqrt(dx*dx+dy*dy);
-      if(dist<130){
-        ctx.beginPath();
-        ctx.moveTo(n.x,n.y);ctx.lineTo(m.x,m.y);
-        ctx.strokeStyle=`rgba(14,116,144,${0.10*(1-dist/130)})`;
-        ctx.lineWidth=0.9;
-        ctx.stroke();
-      }
+      if(dist<130){ctx.beginPath();ctx.moveTo(n.x,n.y);ctx.lineTo(m.x,m.y);ctx.strokeStyle=`rgba(14,116,144,${0.10*(1-dist/130)})`;ctx.lineWidth=0.9;ctx.stroke();}
     }
-
-    if(n.type==='ring'){
-      ctx.beginPath();
-      ctx.arc(n.x,n.y,n.r+2,0,Math.PI*2);
-      ctx.strokeStyle='rgba(14,116,144,0.18)';
-      ctx.lineWidth=1;
-      ctx.stroke();
-    } else {
-      ctx.beginPath();
-      ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
-      ctx.fillStyle='rgba(15,76,129,0.18)';
-      ctx.fill();
-    }
+    if(n.type==='ring'){ctx.beginPath();ctx.arc(n.x,n.y,n.r+2,0,Math.PI*2);ctx.strokeStyle='rgba(14,116,144,0.18)';ctx.lineWidth=1;ctx.stroke();}
+    else{ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fillStyle='rgba(15,76,129,0.18)';ctx.fill();}
   }
   requestAnimationFrame(draw);
 }
 draw();
 </script>
 
-<!-- Section nav scroll + active state (matches research.html logic) -->
+<!-- ══ KEY FIX: dynamic nav offset for scrollToSection ══ -->
 <script>
-const sections = ['leadership','research-team','students','collaborators'];
-const navBtns  = document.querySelectorAll('.nav-btn');
-const navLinks = document.getElementById('navLinks');
+function getNavOffset() {
+  const topNav = document.getElementById('topNav');
+  const darkHeader = document.getElementById('darkHeader');
+  const navH = topNav ? topNav.getBoundingClientRect().height : 66;
+  const darkH = darkHeader ? darkHeader.getBoundingClientRect().height : 62;
+  return navH + darkH + 8; // +8px breathing room
+}
+
+function updateCSSNavHeight() {
+  document.documentElement.style.setProperty('--nav-total-height', getNavOffset() + 'px');
+}
 
 function scrollToSection(id) {
   const el = document.getElementById(id);
-  const navHeight = 128;
-  const top = el.getBoundingClientRect().top + window.pageYOffset - navHeight;
+  if (!el) return;
+  const offset = getNavOffset();
+  const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
   window.scrollTo({ top, behavior: 'smooth' });
 }
 
+// Update CSS var on load and resize
+updateCSSNavHeight();
+window.addEventListener('resize', updateCSSNavHeight);
+
+// Section active state tracking
+const sections = ['leadership','research-team','students','collaborators'];
+const navBtns  = document.querySelectorAll('.nav-btn');
+const navLinksEl = document.getElementById('navLinks');
 const sectionEls = sections.map(id => document.getElementById(id));
 
 function updateActiveNav() {
-  const scrollMid = window.pageYOffset + window.innerHeight * 0.4;
+  const offset = getNavOffset();
+  const scrollMid = window.pageYOffset + offset + 20;
   let activeIdx = 0;
   sectionEls.forEach((el, i) => { if (el && el.offsetTop <= scrollMid) activeIdx = i; });
   navBtns.forEach((b, i) => b.classList.toggle('active', i === activeIdx));
 
   if (window.innerWidth <= 900) {
     const activeBtn = navBtns[activeIdx];
-    if (activeBtn && navLinks) {
+    if (activeBtn && navLinksEl) {
       const btnLeft = activeBtn.offsetLeft;
       const btnWidth = activeBtn.offsetWidth;
-      const stripWidth = navLinks.offsetWidth;
-      navLinks.scrollTo({ left: btnLeft - (stripWidth / 2) + (btnWidth / 2), behavior: 'smooth' });
+      const stripWidth = navLinksEl.offsetWidth;
+      navLinksEl.scrollTo({ left: btnLeft - (stripWidth / 2) + (btnWidth / 2), behavior: 'smooth' });
     }
   }
 }
@@ -650,21 +461,11 @@ updateActiveNav();
 (function() {
   const btn = document.getElementById('siteMenuBtn');
   const dropdown = document.getElementById('siteMenuDropdown');
-
   btn.addEventListener('click', function(e) {
-    if (window.innerWidth <= 900) {
-      e.stopPropagation();
-      dropdown.classList.toggle('open');
-    }
+    if (window.innerWidth <= 900) { e.stopPropagation(); dropdown.classList.toggle('open'); }
   });
-
-  document.addEventListener('click', function() {
-    dropdown.classList.remove('open');
-  });
-
-  window.addEventListener('scroll', function() {
-    dropdown.classList.remove('open');
-  }, { passive: true });
+  document.addEventListener('click', function() { dropdown.classList.remove('open'); });
+  window.addEventListener('scroll', function() { dropdown.classList.remove('open'); }, { passive: true });
 })();
 </script>
 
